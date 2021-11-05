@@ -1,0 +1,45 @@
+.button {
+  letter-spacing: 0.2rem;
+  border: solid;
+  border-width: 2px;
+  font-family: "Circular Std";
+  font-weight: 700;
+}
+
+.button-outline {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+  transition: 300ms;
+}
+
+.button-outline:hover {
+  background-color: white;
+  border-color: white;
+  color: black;
+  transition: 300ms;
+}
+
+.button-outline:focus {
+  background-color: white;
+  border-color: white;
+  color: black;
+}
+
+.button-color {
+  background-color: #1db954;
+  border-color: #1db954;
+  color: white;
+  transition: 300ms;
+}
+
+.button-color:hover {
+  background-color: #1dd760;
+  border-color: #1dd760;
+  transition: 300ms;
+}
+
+.button-color:focus {
+  background-color: #1dd760;
+  border-color: #1dd760;
+}
