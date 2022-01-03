@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-export default function Playlist() {
+function Playlist() {
   useEffect(() => (document.title = "Spotify Cleaner | Playlist"));
 
   return (
@@ -9,3 +9,5 @@ export default function Playlist() {
     </div>
   );
 }
+
+export default Playlist;

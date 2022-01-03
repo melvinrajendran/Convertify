@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 
-export default function Profile() {
+function Profile() {
   useEffect(() => (document.title = "Spotify Cleaner | Profile"));
 
   return (
     <div>
-      <h1>This is your profile, hello.</h1>
+      <h1 className="text-center">This is your profile, hello.</h1>
     </div>
   );
 }
+
+export default Profile;
