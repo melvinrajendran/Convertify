@@ -6,18 +6,21 @@ let REDIRECT_URI = process.env.REDIRECT_URI || "http://localhost:8888/callback";
 let FRONTEND_URI = process.env.FRONTEND_URI || "http://localhost:3000";
 const PORT = process.env.PORT || 8888;
 
-const request = require("request");
 const express = require("express");
+const https = require("https");
+const path = require("path");
+const request = require("request");
+
 const app = express();
 
-function generateRandomString(length) {
+const generateRandomString = (length) => {
   let text = "";
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-}
+};
 
 app.get("/login", function (req, res) {
   var state = generateRandomString(16);
@@ -93,7 +96,6 @@ app.get("/refresh_token", function (req, res) {
   request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       var access_token = body.access_token;
-      console.log(access_token);
       res.send({ access_token: access_token });
     }
   });
