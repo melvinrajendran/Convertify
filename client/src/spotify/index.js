@@ -1,4 +1,3 @@
-// Import Axios
 import axios from "axios";
 import { getHashParameters } from "../utilities";
 
@@ -122,6 +121,20 @@ const headers = {
 
 /**
  * Gets the current user's profile
- * https://developer.spotify.com/documentation/web-api/reference/users-profile/get-current-users-profile/
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
  */
 export const getUser = () => axios.get("https://api.spotify.com/v1/me", { headers });
+
+/**
+ * Get's the current user's playlists
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
+ */
+export const getPlaylists = () => axios.get("https://api.spotify.com/v1/me/playlists?limit=50", { headers });
+
+export const getUserProfile = () =>
+  axios.all([getUser(), getPlaylists()]).then(
+    axios.spread((user, playlists) => ({
+      user: user.data,
+      playlists: playlists.data
+    }))
+  );

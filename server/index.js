@@ -3,8 +3,11 @@
  * https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
  */
 
-// Configure Dotenv
 require("dotenv").config();
+const express = require("express");
+const request = require("request");
+
+const app = express();
 
 // Initialize environment variables
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -12,12 +15,6 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI || "http://localhost:8888/callback";
 const FRONTEND_URI = process.env.FRONTEND_URI || "http://localhost:3000";
 const PORT = process.env.PORT || 8888;
-
-// Configure npm packages
-const express = require("express");
-const request = require("request");
-
-const app = express();
 
 /**
  * Generates a random string containing numbers and letters.

@@ -12,7 +12,7 @@ function Login() {
     <Container fluid className="login-container text-center d-flex align-items-center justify-content-center">
       <Row>
         <Col>
-          <h1 className="login-title display-1 mb-5">Spotify Cleaner</h1>
+          <h1 className="bold-title display-1 mb-5">Spotify Cleaner</h1>
           <PillButton text="Log in to Spotify" href={LOGIN_URI} />
         </Col>
       </Row>
