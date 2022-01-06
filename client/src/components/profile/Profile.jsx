@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import PillButton from "../common/buttons/PillButton";
-import { logOut } from "../../spotify";
+import { getUser, logOut } from "../../spotify";
 
 function Profile() {
   useEffect(() => (document.title = "Spotify Cleaner | Profile"), []);
+
+  const user = getUser();
+  console.log(user);
 
   return (
     <div>

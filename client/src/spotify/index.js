@@ -1,5 +1,6 @@
 // Import Axios
 import axios from "axios";
+import { getHashParameters } from "../utilities";
 
 /**
  * SPOTIFY ACCESS TOKENS AND REFRESH TOKENS
@@ -46,25 +47,6 @@ const getTokenTimestamp = () => window.localStorage.getItem("spotify_token_times
  * Sets the local access token's timestamp to the current time.
  */
 const setTokenTimestamp = () => window.localStorage.setItem("spotify_token_timestamp", Date.now());
-
-/**
- * Parses the URL's hash parameters.
- * @returns {object} an object containing the parameters as key/value pairs
- */
-const getHashParameters = () => {
-  const parameters = {};
-
-  window.location.hash
-    .substring(1)
-    .split("&")
-    .forEach((parameter) => {
-      const key = parameter.split("=")[0],
-        value = parameter.split("=")[1];
-      parameters[key] = value;
-    });
-
-  return parameters;
-};
 
 /**
  * Refreshes the local access token.
