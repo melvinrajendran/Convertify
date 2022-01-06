@@ -1,25 +1,16 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Login from "./login/Login";
 import Profile from "./profile/Profile";
-import Playlist from "./playlist/Playlist";
+import { token } from "../spotify";
 
 function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route exact path="/profile">
-          <Profile />
-        </Route>
-        <Route exact path="/playlist">
-          <Playlist />
-        </Route>
-      </Switch>
-    </Router>
-  );
+  const [accessToken, setAccessToken] = useState("");
+
+  useEffect(() => {
+    setAccessToken(token);
+  }, []);
+
+  return <div>{accessToken ? <Profile /> : <Login />}</div>;
 }
 
 export default App;

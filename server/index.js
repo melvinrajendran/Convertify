@@ -1,30 +1,44 @@
+/**
+ * Spotify Web API Authorization Code Flow
+ * https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+ */
+
+// Configure Dotenv
 require("dotenv").config();
 
+// Initialize environment variables
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-let REDIRECT_URI = process.env.REDIRECT_URI || "http://localhost:8888/callback";
-let FRONTEND_URI = process.env.FRONTEND_URI || "http://localhost:3000";
+const REDIRECT_URI = process.env.REDIRECT_URI || "http://localhost:8888/callback";
+const FRONTEND_URI = process.env.FRONTEND_URI || "http://localhost:3000";
 const PORT = process.env.PORT || 8888;
 
+// Configure npm packages
 const express = require("express");
-const https = require("https");
-const path = require("path");
 const request = require("request");
 
 const app = express();
 
+/**
+ * Generates a random string containing numbers and letters.
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
 const generateRandomString = (length) => {
-  let text = "";
+  let result = "";
+
   const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (let i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    result += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-  return text;
+
+  return result;
 };
 
+// Request user authorization
 app.get("/login", function (req, res) {
-  var state = generateRandomString(16);
-  var scope = "user-read-private playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
+  const state = generateRandomString(16);
+  const scope = "user-read-private playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
@@ -38,9 +52,10 @@ app.get("/login", function (req, res) {
   );
 });
 
+// Request an access token
 app.get("/callback", function (req, res) {
-  var code = req.query.code || null;
-  var state = req.query.state || null;
+  const code = req.query.code || null;
+  const state = req.query.state || null;
 
   if (state === null) {
     res.redirect(
@@ -50,7 +65,7 @@ app.get("/callback", function (req, res) {
         }).toString()
     );
   } else {
-    var authOptions = {
+    const authOptions = {
       url: "https://accounts.spotify.com/api/token",
       form: {
         code: code,
@@ -65,11 +80,12 @@ app.get("/callback", function (req, res) {
 
     request.post(authOptions, function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        var access_token = body.access_token;
-        var refresh_token = body.refresh_token;
+        const access_token = body.access_token;
+        const refresh_token = body.refresh_token;
 
+        // Pass the tokens to the browser to make API requests from there
         res.redirect(
-          `${FRONTEND_URI}/profile#${new URLSearchParams({
+          `${FRONTEND_URI}/#${new URLSearchParams({
             access_token,
             refresh_token
           }).toString()}`
@@ -81,9 +97,10 @@ app.get("/callback", function (req, res) {
   }
 });
 
+// Request a refreshed access token
 app.get("/refresh_token", function (req, res) {
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
+  const refresh_token = req.query.refresh_token;
+  const authOptions = {
     url: "https://accounts.spotify.com/api/token",
     headers: { Authorization: "Basic " + Buffer.from(CLIENT_ID + ":" + CLIENT_SECRET).toString("base64") },
     form: {
@@ -95,12 +112,13 @@ app.get("/refresh_token", function (req, res) {
 
   request.post(authOptions, function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
+      const access_token = body.access_token;
       res.send({ access_token: access_token });
     }
   });
 });
 
+// Listen on the port specified above
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  console.log(`Server listening at http://localhost:${PORT}`);
 });

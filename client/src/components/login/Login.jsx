@@ -6,7 +6,7 @@ import "./Login.css";
 const LOGIN_URI = "http://localhost:8888/login";
 
 function Login() {
-  useEffect(() => (document.title = "Spotify Cleaner | Login"));
+  useEffect(() => (document.title = "Spotify Cleaner | Login"), []);
 
   return (
     <Container fluid className="login-container text-center d-flex align-items-center justify-content-center">
