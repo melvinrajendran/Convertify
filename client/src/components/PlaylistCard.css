@@ -1,0 +1,7 @@
+.card {
+  color: #181818;
+}
+
+.card:hover {
+  color: #282828;
+}

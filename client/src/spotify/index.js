@@ -2,6 +2,12 @@ import axios from "axios";
 import { getHashParameters } from "../utilities";
 
 /**
+ * TODO
+ * handle if user removes access from account while logged into app
+ * Change name to Convertify
+ */
+
+/**
  * SPOTIFY ACCESS TOKENS AND REFRESH TOKENS
  */
 
@@ -77,7 +83,7 @@ export const getAccessToken = () => {
   }
 
   // Handle an expired access token
-  if (getTokenTimestamp() && Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
+  if (getTokenTimestamp() && getTokenTimestamp() !== "undefined" && Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
     console.warn("Access token has expired, refreshing...");
     refreshAccessToken();
   }
@@ -88,6 +94,7 @@ export const getAccessToken = () => {
   if ((!localAccessToken || localAccessToken === "undefined") && access_token) {
     setLocalAccessToken(access_token);
     setLocalRefreshToken(refresh_token);
+
     // Return "access_token" from the URL hash parameters
     return access_token;
   }
@@ -131,10 +138,17 @@ export const getUser = () => axios.get("https://api.spotify.com/v1/me", { header
  */
 export const getPlaylists = () => axios.get("https://api.spotify.com/v1/me/playlists?limit=50", { headers });
 
+/**
+ * Get's the current user's followed artists
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-followed
+ */
+export const getFollowedArtists = () => axios.get("https://api.spotify.com/v1/me/following?type=artist&limit=50", { headers });
+
 export const getUserProfile = () =>
-  axios.all([getUser(), getPlaylists()]).then(
-    axios.spread((user, playlists) => ({
+  axios.all([getUser(), getPlaylists(), getFollowedArtists()]).then(
+    axios.spread((user, playlists, followedArtists) => ({
       user: user.data,
-      playlists: playlists.data
+      playlists: playlists.data,
+      followedArtists: followedArtists.data
     }))
   );

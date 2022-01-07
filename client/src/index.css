@@ -80,6 +80,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.fullscreen-container {
+  height: 100vh;
+}
+
 .bold-title {
   font-weight: 700;
+}
+
+a:link {
+  color: white;
+  transition: 300ms;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+  transition: 300ms;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1dd760;
+  transition: 300ms;
+  text-decoration: none;
 }

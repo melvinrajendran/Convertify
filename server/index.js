@@ -35,7 +35,7 @@ const generateRandomString = (length) => {
 // Request user authorization
 app.get("/login", function (req, res) {
   const state = generateRandomString(16);
-  const scope = "user-read-private playlist-modify-private playlist-read-collaborative playlist-read-private playlist-modify-public";
+  const scope = "user-read-private user-follow-read playlist-modify-private playlist-read-collaborative user-read-email playlist-read-private playlist-modify-public";
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
