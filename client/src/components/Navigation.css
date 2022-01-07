@@ -1,0 +1,17 @@
+.navbar {
+  background-color: #121212;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.nav-link:visited {
+  color: inherit;
+}
+
+.fab,
+.fas {
+  font-size: 1.5rem;
+}

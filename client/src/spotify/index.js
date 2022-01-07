@@ -84,7 +84,6 @@ export const getAccessToken = () => {
 
   // Handle an expired access token
   if (getTokenTimestamp() && getTokenTimestamp() !== "undefined" && Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
-    console.warn("Access token has expired, refreshing...");
     refreshAccessToken();
   }
 

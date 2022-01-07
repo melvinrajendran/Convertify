@@ -88,19 +88,19 @@ code {
   font-weight: 700;
 }
 
-a:link {
+.white-to-green {
   color: white;
   transition: 200ms;
   text-decoration: none;
 }
 
-a:visited {
+.white-to-green:visited {
   color: white;
   transition: 200ms;
   text-decoration: none;
 }
 
-a:hover {
+.white-to-green:hover {
   color: #1dd760;
   transition: 200ms;
   text-decoration: none;
