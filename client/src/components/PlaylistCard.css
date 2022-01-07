@@ -1,7 +1,16 @@
-.card {
-  color: #181818;
+.playlist-card {
+  max-height: 21rem;
+  max-width: 16rem;
+  min-height: 21rem;
+  min-width: 16rem;
+  border: none;
+  border-radius: 2%;
+  background-color: #181818;
+  transition: 200ms;
 }
 
-.card:hover {
-  color: #282828;
+.playlist-card:hover {
+  background-color: #282828;
+  transition: 200ms;
+  cursor: pointer;
 }

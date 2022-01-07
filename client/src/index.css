@@ -90,18 +90,18 @@ code {
 
 a:link {
   color: white;
-  transition: 300ms;
+  transition: 200ms;
   text-decoration: none;
 }
 
 a:visited {
   color: white;
-  transition: 300ms;
+  transition: 200ms;
   text-decoration: none;
 }
 
 a:hover {
   color: #1dd760;
-  transition: 300ms;
+  transition: 200ms;
   text-decoration: none;
 }
