@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./PlaylistCard.css";
 
 const PlaylistCard = (props) => {
@@ -7,9 +8,10 @@ const PlaylistCard = (props) => {
     <Card className="playlist-card">
       <Card.Img className="rounded pt-4 pb-1 px-4" variant="top" src={props.info.images[0].url} alt="playlist" />
       <Card.Body>
-        <Card.Title className="ps-2">
-          <h5>{props.info.name}</h5>
+        <Card.Title className="px-2">
+          <h5 className="playlist-name">{props.info.name}</h5>
         </Card.Title>
+        <Link className="stretched-link" to={`/playlists/${props.info.id}`} />
       </Card.Body>
     </Card>
   );

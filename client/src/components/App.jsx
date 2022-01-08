@@ -3,22 +3,29 @@ import Navigation from "./Navigation";
 import Login from "./Login";
 import Profile from "./Profile";
 import { token } from "../spotify";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PlaylistDetails from "./PlaylistDetails";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState("");
   useEffect(() => setAccessToken(token), []);
 
   return (
-    <div>
-      {accessToken ? (
-        <div>
-          <Navigation />
-          <Profile />
-        </div>
-      ) : (
+    <>
+      {!accessToken ? (
         <Login />
+      ) : (
+        <div className="body px-5 pb-5">
+          <Navigation />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Profile />} />
+              <Route path="/:playlistId" element={<PlaylistDetails />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

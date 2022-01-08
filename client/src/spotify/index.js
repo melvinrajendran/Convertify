@@ -5,6 +5,8 @@ import { getHashParameters } from "../utilities";
  * TODO
  * handle if user removes access from account while logged into app
  * Change name to Convertify
+ * Implement Loader
+ * process not defined something
  */
 
 /**

@@ -55,7 +55,6 @@
 }
 
 body {
-  margin: 0;
   background-color: #121212;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,10 +73,6 @@ h6 {
   font-family: "Circular Std";
   font-weight: 700;
   color: #ffffff;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .fullscreen-container {
@@ -104,4 +99,8 @@ code {
   color: #1dd760;
   transition: 200ms;
   text-decoration: none;
+}
+
+.body {
+  padding-top: 63px;
 }

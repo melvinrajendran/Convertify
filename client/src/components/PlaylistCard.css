@@ -14,3 +14,9 @@
   transition: 200ms;
   cursor: pointer;
 }
+
+.playlist-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { getUserProfile } from "../spotify";
-import Loader from "./Loader";
 import User from "./User";
 import Playlists from "./Playlists";
 
@@ -28,16 +27,14 @@ const Profile = () => {
   ];
 
   return (
-    <div>
-      {user && playlists && followedArtists ? (
-        <div className="m-5">
+    <>
+      {user && playlists && followedArtists && (
+        <>
           <User imageUrl={user.images[0].url} profileUrl={user.external_urls.spotify} name={user.display_name} statistics={userStatistics} />
           <Playlists playlists={playlists} />
-        </div>
-      ) : (
-        <Loader />
+        </>
       )}
-    </div>
+    </>
   );
 };
 
