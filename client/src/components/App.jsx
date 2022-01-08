@@ -20,7 +20,7 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Profile />} />
-              <Route path="/:playlistId" element={<PlaylistDetails />} />
+              <Route path="/playlists/:playlistId" element={<PlaylistDetails />} />
             </Routes>
           </BrowserRouter>
         </div>
