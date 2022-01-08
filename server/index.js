@@ -5,6 +5,7 @@
 
 require("dotenv").config();
 const express = require("express");
+const path = require("path");
 const request = require("request");
 
 const app = express();
@@ -31,6 +32,10 @@ const generateRandomString = (length) => {
 
   return result;
 };
+
+app.get("/", function (req, res) {
+  res.render(path.resolve(__dirname, "../client/build/index.html"));
+});
 
 // Request user authorization
 app.get("/login", function (req, res) {
@@ -113,6 +118,11 @@ app.get("/refresh_token", function (req, res) {
       res.send({ access_token: access_token });
     }
   });
+});
+
+// Handle all remaining requests within the React app
+app.get("*", function (req, res) {
+  res.sendFile(path.resolve(__dirname, "../client/public", "index.html"));
 });
 
 // Listen on the port specified above
