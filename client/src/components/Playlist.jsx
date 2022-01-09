@@ -17,7 +17,7 @@ const Playlist = () => {
     fetchData();
   }, [playlistId]);
 
-  useEffect(() => (document.title = `Spotify Cleaner | Playlists${playlist && " | " + playlist.name}`));
+  useEffect(() => (document.title = `Spotify Cleaner | Playlists${playlist ? ` | ${playlist.name}` : ``}`), [playlist]);
 
   return (
     <>
@@ -30,28 +30,36 @@ const Playlist = () => {
           </Container>
           <Container fluid className="p-5">
             <Row>
-              <Col md={6}>
+              <Col md={6} xl={{ span: 5, offset: 1 }} className="px-md-5 d-none d-md-block">
                 {playlist.tracks.items.map((playlistTrack, index) => (
-                  <Row key={index}>
-                    <Col xs={1} className="track-image">
-                      <img src={playlistTrack.track.album.images[0] && playlistTrack.track.album.images[0].url} alt="track" width="45" height="45" />
-                    </Col>
-                    <Col xs={10}>
-                      <p className="mb-0 truncate-text">{playlistTrack.track.name}</p>
+                  <div key={index} className="p-1">
+                    <img className="track-image float-start" src={playlistTrack.track.album.images[0] && playlistTrack.track.album.images[0].url} alt="track" width="45" height="45" />
+                    <div className="d-inline">
+                      <p className="m-0 truncate-text">{playlistTrack.track.name}</p>
                       <p className="artist-names truncate-text">
                         {playlistTrack.track.explicit && <span>&#127348; </span>}
-                        {playlistTrack.track.artists.map((artist, index) => {
-                          let artistsString = artist.name;
-                          if (index < playlistTrack.track.artists.length - 1) {
-                            artistsString += ", ";
-                          }
-                          return artistsString;
-                        })}
+                        {playlistTrack.track.artists.map((artist, index) => (index < playlistTrack.track.artists.length - 1 ? artist.name + ", " : artist.name))}
                         &nbsp;&nbsp;·&nbsp;&nbsp;
                         {playlistTrack.track.album.name}
                       </p>
-                    </Col>
-                  </Row>
+                    </div>
+                  </div>
+                ))}
+              </Col>
+              <Col md={6} xl={{ span: 5 }} className="px-md-5">
+                {playlist.tracks.items.map((playlistTrack, index) => (
+                  <div key={index} className="p-1">
+                    <img className="track-image float-start" src={playlistTrack.track.album.images[0] && playlistTrack.track.album.images[0].url} alt="track" width="45" height="45" />
+                    <div className="d-inline">
+                      <p className="m-0 truncate-text">{playlistTrack.track.name}</p>
+                      <p className="artist-names truncate-text">
+                        {playlistTrack.track.explicit && <span>&#127348; </span>}
+                        {playlistTrack.track.artists.map((artist, index) => (index < playlistTrack.track.artists.length - 1 ? artist.name + ", " : artist.name))}
+                        &nbsp;&nbsp;·&nbsp;&nbsp;
+                        {playlistTrack.track.album.name}
+                      </p>
+                    </div>
+                  </div>
                 ))}
               </Col>
             </Row>
