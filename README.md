@@ -1,5 +1,7 @@
 # Spotify Cleaner
 
+<img width="1440" alt="Screen Shot 2022-01-09 at 1 26 07 AM" src="https://user-images.githubusercontent.com/44681827/148671732-b9fa43b6-259c-41a1-8fec-ac6d5cf68058.png">
+
 A web application that allows Spotify users to easily convert their playlists between explicit and clean.
 
 ## Getting Started with Create React App
