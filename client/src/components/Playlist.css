@@ -6,3 +6,9 @@
 .track-image {
   margin-right: 15px;
 }
+
+@media (min-width: 768px) {
+  .affix {
+    position: fixed;
+  }
+}
