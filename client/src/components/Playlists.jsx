@@ -5,7 +5,8 @@ import PlaylistCard from "./PlaylistCard";
 const Playlists = (props) => {
   return (
     <Container fluid className="px-5 pb-5">
-      <h2 className="display-5 bold-title mb-5">Playlists</h2>
+      <h2 className="display-5 bold-title">Playlists</h2>
+      <p className="fs-5 mb-5 gray-text">Select a playlist to convert.</p>
       <Row className="gy-4">
         {props.playlists &&
           props.playlists.items.map((playlist, index) => (

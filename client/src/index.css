@@ -111,3 +111,11 @@ h6 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.gray-text {
+  color: #bebdb9;
+}
+
+.description-text {
+  max-width: 550px;
+}

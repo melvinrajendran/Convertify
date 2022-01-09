@@ -17,7 +17,7 @@ const Profile = () => {
     };
     fetchData();
 
-    document.title = "Spotify Cleaner | Profile";
+    document.title = "Convertify | Profile";
   }, []);
 
   const userStatistics = [

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getPlaylist, getPlaylistByUrl, getPlaylistTracks } from "../spotify";
+import { getPlaylist } from "../spotify";
 import "./Playlist.css";
 import PillButton from "./PillButton";
 
@@ -17,9 +17,9 @@ const Playlist = () => {
       setPlaylist(data);
     };
     fetchData();
-
-    document.title = `Spotify Cleaner | Playlists${playlist ? ` | ${playlist.name}` : ``}`;
   }, []);
+
+  useEffect(() => (document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`));
 
   return (
     <>
