@@ -62,6 +62,7 @@ body {
   font-family: "Circular Std";
   font-weight: 400;
   color: white;
+  letter-spacing: 0.0125rem;
 }
 
 h1,
@@ -102,5 +103,11 @@ h6 {
 }
 
 .body {
-  padding-top: 63px;
+  margin-top: 63px;
+}
+
+.truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

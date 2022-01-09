@@ -4,7 +4,7 @@ import Login from "./Login";
 import Profile from "./Profile";
 import { token } from "../spotify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PlaylistDetails from "./PlaylistDetails";
+import Playlist from "./Playlist";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState("");
@@ -15,15 +15,17 @@ const App = () => {
       {!accessToken ? (
         <Login />
       ) : (
-        <div className="body px-5 pb-5">
+        <>
           <Navigation />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Profile />} />
-              <Route path="/playlists/:playlistId" element={<PlaylistDetails />} />
-            </Routes>
-          </BrowserRouter>
-        </div>
+          <div className="body p-5">
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Profile />} />
+                <Route path="/playlists/:playlistId" element={<Playlist />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
+        </>
       )}
     </>
   );

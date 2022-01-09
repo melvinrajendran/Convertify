@@ -9,7 +9,7 @@ const PlaylistCard = (props) => {
       <Card.Img className="rounded pt-4 pb-1 px-4" variant="top" src={props.info.images[0].url} alt="playlist" />
       <Card.Body>
         <Card.Title className="px-2">
-          <h5 className="playlist-name">{props.info.name}</h5>
+          <h5 className="truncate-text">{props.info.name}</h5>
         </Card.Title>
         <Link className="stretched-link" to={`/playlists/${props.info.id}`} />
       </Card.Body>

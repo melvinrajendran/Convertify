@@ -7,6 +7,7 @@ import { getHashParameters } from "../utilities";
  * Change name to Convertify
  * Implement Loader
  * process not defined something
+ * handle 404
  */
 
 /**
@@ -132,6 +133,13 @@ const headers = {
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
  */
 export const getUser = () => axios.get("https://api.spotify.com/v1/me", { headers });
+
+/**
+ * Gets a specific playlist of the current user
+ * @param {string} playlistId the ID of the playlist
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
+ *  */
+export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
 /**
  * Get's the current user's playlists
