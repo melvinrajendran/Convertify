@@ -1,6 +1,6 @@
 # Convertify
 
-A web application that allows Spotify users to easily convert their playlists between explicit and clean.
+A web application that allows Spotify users to easily convert their playlists from explicit to clean.
 
 ## Getting Started with Create React App
 
