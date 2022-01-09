@@ -144,11 +144,29 @@ export const getUser = () => axios.get("https://api.spotify.com/v1/me", { header
  *  */
 export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
+export const getPlaylistByUrl = (url) => axios.get(url, { headers });
+
 /**
  * Get's the current user's playlists
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
  */
 export const getPlaylists = () => axios.get("https://api.spotify.com/v1/me/playlists?limit=50", { headers });
+
+export const getPlaylistTracks = (playlistId) => {
+  const tracks = [];
+
+  getPlaylist(playlistId).then((playlist) => {
+    let response = playlist.data;
+    while (response.tracks.next !== null) {
+      response.tracks.items.forEach((item) => {
+        tracks.push(item.track);
+      });
+      response = getPlaylistByUrl(playlist.tracks.next);
+    }
+  });
+
+  return tracks;
+};
 
 /**
  * Get's the current user's followed artists
