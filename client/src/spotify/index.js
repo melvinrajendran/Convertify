@@ -5,9 +5,11 @@ import { getHashParameters } from "../utilities";
  * TODO
  * handle if user removes access from account while logged into app
  * Change name to Convertify
- * Implement Loader
+ * Implement <Loader />
  * process not defined something
  * handle 404
+ * work for playlists greater than 100 tracks
+ * correctly display playlist, playlists, followers, and following counts in <User />
  */
 
 /**
