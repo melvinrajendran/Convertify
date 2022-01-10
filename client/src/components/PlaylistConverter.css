@@ -24,3 +24,11 @@
     padding-right: 5rem;
   }
 }
+
+.label-text {
+  letter-spacing: 0.1rem;
+  font-family: "Circular Std";
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: #bebdb9;
+}

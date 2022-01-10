@@ -4,7 +4,7 @@ import Login from "./Login";
 import Profile from "./Profile";
 import { token } from "../spotify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Playlist from "./Playlist";
+import PlaylistConverter from "./PlaylistConverter";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState("");
@@ -21,7 +21,7 @@ const App = () => {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Profile />} />
-                <Route path="/playlists/:playlistId" element={<Playlist />} />
+                <Route path="/playlists/:playlistId" element={<PlaylistConverter />} />
               </Routes>
             </BrowserRouter>
           </div>

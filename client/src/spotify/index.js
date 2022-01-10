@@ -9,6 +9,7 @@ import { getHashParameters } from "../utilities";
  * handle non-routes ie 404
  * THE ACTUAL CONVERTER
  * local file
+ * work for other users
  */
 
 /**
