@@ -5,10 +5,8 @@ import { getHashParameters } from "../utilities";
  * TODO
  * handle if user removes access from account while logged into app
  * Implement <Loader />
- * process not defined something
+ * process not defined something (may not be an issue, occurs when changing source while React app is running)
  * handle non-routes ie 404
- * work for playlists greater than 100 tracks
- * correctly display playlist, playlists, followers, and following counts in <User />
  * THE ACTUAL CONVERTER
  * local file
  */

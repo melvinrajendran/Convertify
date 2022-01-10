@@ -9,7 +9,7 @@ const Playlists = (props) => {
       <p className="fs-5 mb-5 gray-text">Select a playlist to convert.</p>
       <Row className="gy-4">
         {props.playlists &&
-          props.playlists.items.map((playlist, index) => (
+          props.playlists.map((playlist, index) => (
             <Col className="d-flex justify-content-center gx-4" key={index}>
               <PlaylistCard key={index} info={playlist} />
             </Col>

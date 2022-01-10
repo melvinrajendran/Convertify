@@ -1,36 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { getUserProfile } from "../spotify";
+import { getDataByUrl, getUserProfile } from "../spotify";
 import User from "./User";
 import Playlists from "./Playlists";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [playlists, setPlaylists] = useState(null);
-  const [followedArtists, setFollowedArtists] = useState(null);
+  const [playlists, setPlaylists] = useState([]);
+  const [followedArtists, setFollowedArtists] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const { user, playlists, followedArtists } = await getUserProfile();
       setUser(user);
-      setPlaylists(playlists);
-      setFollowedArtists(followedArtists);
+
+      const playlistArr = [];
+      let nextPUrl = playlists.href;
+      do {
+        const nextPlaylists = await getDataByUrl(nextPUrl);
+        console.log(nextPlaylists);
+        playlistArr.push(...nextPlaylists.data.items);
+        nextPUrl = nextPlaylists.data.next;
+      } while (nextPUrl !== null);
+      setPlaylists(playlistArr);
+
+      const artistArr = [];
+      let nextAUrl = followedArtists.artists.href;
+      do {
+        const nextArtists = await getDataByUrl(nextAUrl);
+        artistArr.push(...nextArtists.data.artists.items);
+        nextAUrl = nextArtists.data.artists.next;
+      } while (nextAUrl !== null);
+      setFollowedArtists(artistArr);
     };
     fetchData();
 
     document.title = "Convertify | Profile";
   }, []);
 
-  const userStatistics = [
-    { number: playlists ? playlists.items.length : 0, label: "Playlists" },
-    { number: user ? user.followers.total : 0, label: "Followers" },
-    { number: followedArtists ? followedArtists.artists.items.length : 0, label: "Following" }
-  ];
-
   return (
     <>
       {user && playlists && followedArtists && (
         <>
-          <User imageUrl={user.images[0].url} profileUrl={user.external_urls.spotify} name={user.display_name} statistics={userStatistics} />
+          <User
+            user={user}
+            statistics={[
+              { number: playlists.length, label: "Playlists" },
+              { number: user.followers.total, label: "Followers" },
+              { number: followedArtists.length, label: "Following" }
+            ]}
+          />
           <Playlists playlists={playlists} />
         </>
       )}
