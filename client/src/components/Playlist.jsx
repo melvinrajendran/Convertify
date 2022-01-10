@@ -17,13 +17,14 @@ const Playlist = () => {
       const { data } = await getPlaylist(playlistId);
       setPlaylist(data);
 
-      let nextTracksUrl = data.tracks.href;
+      const itemArr = [];
+      let nextUrl = data.tracks.href;
       do {
-        const nextTracks = await getDataByUrl(nextTracksUrl);
-        // console.log(nextTracks.data);
-        setItems([...items, ...nextTracks.data.items]);
-        nextTracksUrl = nextTracks.data.next;
-      } while (nextTracksUrl !== null);
+        const nextItems = await getDataByUrl(nextUrl);
+        itemArr.push(...nextItems.data.items);
+        nextUrl = nextItems.data.next;
+      } while (nextUrl !== null);
+      setItems(itemArr);
     };
     fetchData();
   }, []);
@@ -34,7 +35,6 @@ const Playlist = () => {
     <>
       {playlist && (
         <Row>
-          {console.log(items)}
           <Col className="text-center mb-5 affix" md={6} xl={{ span: 5, offset: 1 }}>
             <img className="mb-3" src={playlist.images[0].url} alt="playlist" width="250" height="250" />
             <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
@@ -44,7 +44,7 @@ const Playlist = () => {
             <PillButton text="Convert" href="/" />
           </Col>
           <Col className="" xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 6 }} xl={{ span: 4, offset: 6 }}>
-            {playlist.tracks.items.map((playlistTrack, index) => (
+            {items.map((playlistTrack, index) => (
               <div key={index}>
                 <img className="track-image float-start" src={playlistTrack.track.album.images[0] && playlistTrack.track.album.images[0].url} alt="track" width="45" height="45" />
                 <div className="d-inline">
