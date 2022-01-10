@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getPlaylist } from "../spotify";
+import { getDataByUrl, getPlaylist } from "../spotify";
 import "./Playlist.css";
 import PillButton from "./PillButton";
 
@@ -10,11 +10,20 @@ const Playlist = () => {
   const { playlistId } = useParams();
 
   const [playlist, setPlaylist] = useState(null);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await getPlaylist(playlistId);
       setPlaylist(data);
+
+      let nextTracksUrl = data.tracks.href;
+      do {
+        const nextTracks = await getDataByUrl(nextTracksUrl);
+        // console.log(nextTracks.data);
+        setItems([...items, ...nextTracks.data.items]);
+        nextTracksUrl = nextTracks.data.next;
+      } while (nextTracksUrl !== null);
     };
     fetchData();
   }, []);
@@ -25,6 +34,7 @@ const Playlist = () => {
     <>
       {playlist && (
         <Row>
+          {console.log(items)}
           <Col className="text-center mb-5 affix" md={6} xl={{ span: 5, offset: 1 }}>
             <img className="mb-3" src={playlist.images[0].url} alt="playlist" width="250" height="250" />
             <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>

@@ -4,13 +4,13 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  * handle if user removes access from account while logged into app
- * Change name to Convertify
  * Implement <Loader />
  * process not defined something
- * handle 404
+ * handle non-routes ie 404
  * work for playlists greater than 100 tracks
  * correctly display playlist, playlists, followers, and following counts in <User />
  * THE ACTUAL CONVERTER
+ * local file
  */
 
 /**
@@ -133,47 +133,28 @@ const headers = {
 
 /**
  * Gets the current user's profile
+ *
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-current-users-profile
  */
 export const getUser = () => axios.get("https://api.spotify.com/v1/me", { headers });
 
 /**
- * Gets a specific playlist of the current user
- * @param {string} playlistId the ID of the playlist
- * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
- *  */
-export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
-
-export const getPlaylistByUrl = (url) => axios.get(url, { headers });
-
-/**
- * Get's the current user's playlists
+ * Gets the current user's playlists
+ *
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
  */
 export const getPlaylists = () => axios.get("https://api.spotify.com/v1/me/playlists?limit=50", { headers });
 
-export const getPlaylistTracks = (playlistId) => {
-  const tracks = [];
-
-  getPlaylist(playlistId).then((playlist) => {
-    let response = playlist.data;
-    while (response.tracks.next !== null) {
-      response.tracks.items.forEach((item) => {
-        tracks.push(item.track);
-      });
-      response = getPlaylistByUrl(playlist.tracks.next);
-    }
-  });
-
-  return tracks;
-};
-
 /**
- * Get's the current user's followed artists
+ * Gets the current user's followed artists
+ *
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-followed
  */
 export const getFollowedArtists = () => axios.get("https://api.spotify.com/v1/me/following?type=artist&limit=50", { headers });
 
+/**
+ * Gets the current user's profile, which consists of user and playlist data
+ */
 export const getUserProfile = () =>
   axios.all([getUser(), getPlaylists(), getFollowedArtists()]).then(
     axios.spread((user, playlists, followedArtists) => ({
@@ -182,3 +163,13 @@ export const getUserProfile = () =>
       followedArtists: followedArtists.data
     }))
   );
+
+/**
+ * Gets a specific playlist of the current user
+ * @param {string} playlistId the ID of the playlist
+ *
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
+ *  */
+export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
+
+export const getDataByUrl = (url) => axios.get(url, { headers });
