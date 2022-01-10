@@ -27,7 +27,7 @@ const Playlist = () => {
       setItems(itemArr);
     };
     fetchData();
-  }, []);
+  }, [playlistId]);
 
   useEffect(() => (document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`));
 
