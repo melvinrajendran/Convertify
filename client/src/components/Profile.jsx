@@ -17,7 +17,6 @@ const Profile = () => {
       let nextPUrl = playlists.href;
       do {
         const nextPlaylists = await getDataByUrl(nextPUrl);
-        console.log(nextPlaylists);
         playlistArr.push(...nextPlaylists.data.items);
         nextPUrl = nextPlaylists.data.next;
       } while (nextPUrl !== null);

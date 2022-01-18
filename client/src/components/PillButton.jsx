@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 const PillButton = (props) => {
   return (
-    <Button onClick={props.onClick} size="sm" href={props.href} className={`rounded-pill shadow-none px-5 py-3 button ${props.outline ? "button-outline" : "button-color"}`}>
+    <Button onClick={props.onClick} size="sm" href={props.href} className={`rounded-pill shadow-none px-5 py-3 button ${props.outline ? "button-outline" : "button-color"}`} disabled={props.disabled}>
       {props.text.toUpperCase()}
     </Button>
   );

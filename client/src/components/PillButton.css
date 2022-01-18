@@ -43,3 +43,8 @@
   background-color: #1dd760;
   border-color: #1dd760;
 }
+
+.btn-primary.disabled {
+  background-color: #1db954;
+  border-color: #1db954;
+}

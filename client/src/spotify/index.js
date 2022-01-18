@@ -3,11 +3,10 @@ import { getHashParameters } from "../utilities";
 
 /**
  * TODO
+ * THE ACTUAL CONVERTER
  * handle if user removes access from account while logged into app
- * Implement <Loader />
  * process not defined something (may not be an issue, occurs when changing source while React app is running)
  * handle non-routes ie 404
- * THE ACTUAL CONVERTER
  * local file
  * work for other users
  */
@@ -172,3 +171,35 @@ export const getUserProfile = () =>
 export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
 export const getDataByUrl = (url) => axios.get(url, { headers });
+
+export const createPlaylist = (userId, name) => {
+  const url = `https://api.spotify.com/v1/users/${userId}/playlists`;
+  const data = JSON.stringify({ name });
+  return axios({ method: "post", url, headers, data });
+};
+
+export const addTracksToPlaylist = (playlistId, uris) => {
+  const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+  return axios({ method: "post", url, headers, body: uris });
+};
+
+export const convertPlaylist = (userId, name, playlistItems, toClean) => {
+  const { newPlaylist } = createPlaylist(userId, name);
+  const newPlaylistId = newPlaylist.id;
+
+  const uris = [];
+  playlistItems.forEach((item) => {
+    let uri = item.track.uri;
+    uris.push(uri);
+  });
+
+  addTracksToPlaylist(newPlaylistId, uris);
+};
+
+export const searchForTrack = (name, artist) => {
+  let params = "";
+  params += encodeURI("track:" + name);
+  params += "&" + encodeURI("artist:" + artist);
+
+  axios.get(`https://api.spotify.com/v1/search?q=name:abacab&type=track`, { headers, params });
+};
