@@ -7,14 +7,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PlaylistConverter from "./PlaylistConverter";
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(null);
   useEffect(() => setAccessToken(token), []);
 
   return (
     <>
-      {!accessToken ? (
-        <Login />
-      ) : (
+      {accessToken ? (
         <>
           <Navigation />
           <div className="body p-5">
@@ -26,6 +24,8 @@ const App = () => {
             </BrowserRouter>
           </div>
         </>
+      ) : (
+        <Login />
       )}
     </>
   );

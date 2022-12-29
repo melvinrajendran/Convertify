@@ -42,7 +42,6 @@ const PlaylistConverter = () => {
     <>
       {userId && playlist && items && (
         <Row>
-          {/* {addTracksToPlaylist("2g63BHYoh1Ei85qmYNg0Eo", ["spotify:track:3rBEvidEbQPf5Z5RDZMGsS"])} */}
           <Col className="text-center mb-5 affix" md={6} xl={{ span: 5, offset: 1 }}>
             <img className="mb-3" src={playlist.images.length > 0 ? playlist.images[0].url : process.env.PUBLIC_URL + "/empty-playlist.png"} alt="playlist" width="250" height="250" />
             <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
@@ -53,8 +52,12 @@ const PlaylistConverter = () => {
               <span className="ms-4 label-text"> CLEAN</span>
             </div>
             <div className="py-3" />
-            <PillButton text="Convert" href="/" disabled={playlist.images.length > 0 ? false : true} />
-            {/* {convertPlaylist(userId, `${playlist.name} ${toClean ? `(Clean)` : `(Explicit)`}`, items, toClean)} */}
+            <PillButton
+              text="Convert"
+              // href="/"
+              disabled={playlist.images.length > 0 ? false : true}
+              onClick={() => convertPlaylist(userId, playlist.name, items, toClean)}
+            />
           </Col>
           <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 6 }} xl={{ span: 4, offset: 6 }}>
             {items.map((playlistTrack, index) => (

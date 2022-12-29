@@ -11,7 +11,7 @@ const Playlists = (props) => {
         {props.playlists &&
           props.playlists.map((playlist, index) => (
             <Col className="d-flex justify-content-center gx-4" key={index}>
-              <PlaylistCard key={index} info={playlist} />
+              <PlaylistCard info={playlist} />
             </Col>
           ))}
       </Row>

@@ -167,7 +167,7 @@ export const getUserProfile = () =>
  * @param {string} playlistId the ID of the playlist
  *
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
- *  */
+ */
 export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
 export const getDataByUrl = (url) => axios.get(url, { headers });
@@ -180,20 +180,22 @@ export const createPlaylist = (userId, name) => {
 
 export const addTracksToPlaylist = (playlistId, uris) => {
   const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
-  return axios({ method: "post", url, headers, body: uris });
+  const data = JSON.stringify({ uris });
+  return axios({ method: "post", url, headers, data });
 };
 
-export const convertPlaylist = (userId, name, playlistItems, toClean) => {
-  const { newPlaylist } = createPlaylist(userId, name);
-  const newPlaylistId = newPlaylist.id;
+export const convertPlaylist = (userId, playlistName, playlistItems, toClean) => {
+  createPlaylist(userId, `${playlistName} ${toClean ? `(Clean)` : `(Explicit)`}`).then((response) => {
+    const newPlaylistId = response.data.id;
 
-  const uris = [];
-  playlistItems.forEach((item) => {
-    let uri = item.track.uri;
-    uris.push(uri);
+    const uris = [];
+    playlistItems.forEach((item) => {
+      let uri = item.track.uri;
+      uris.push(uri);
+    });
+
+    addTracksToPlaylist(newPlaylistId, uris);
   });
-
-  addTracksToPlaylist(newPlaylistId, uris);
 };
 
 export const searchForTrack = (name, artist) => {
