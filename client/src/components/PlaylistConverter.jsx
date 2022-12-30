@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { addTracksToPlaylist, convertPlaylist, createPlaylist, getDataByUrl, getPlaylist, getUser, searchForTrack } from "../spotify";
+import { convertPlaylist, getDataByUrl, getPlaylist, getProfile } from "../spotify";
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
 import Switch from "./Switch";
@@ -18,7 +18,7 @@ const PlaylistConverter = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const user = await getUser();
+      const user = await getProfile();
       setUserId(user.data.id);
 
       const playlist = await getPlaylist(playlistId);

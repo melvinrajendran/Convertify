@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { getDataByUrl, getUserProfile } from "../spotify";
+import { getDataByUrl, getConvertifyProfile } from "../spotify";
 import User from "./User";
 import Playlists from "./Playlists";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
-  const [playlists, setPlaylists] = useState([]);
   const [followedArtists, setFollowedArtists] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const { user, playlists, followedArtists } = await getUserProfile();
+      const { user, followedArtists, playlists } = await getConvertifyProfile();
       setUser(user);
-
-      const playlistArr = [];
-      let nextPUrl = playlists.href;
-      do {
-        const nextPlaylists = await getDataByUrl(nextPUrl);
-        playlistArr.push(...nextPlaylists.data.items);
-        nextPUrl = nextPlaylists.data.next;
-      } while (nextPUrl !== null);
-      setPlaylists(playlistArr);
 
       const artistArr = [];
       let nextAUrl = followedArtists.artists.href;
@@ -30,6 +21,15 @@ const Profile = () => {
         nextAUrl = nextArtists.data.artists.next;
       } while (nextAUrl !== null);
       setFollowedArtists(artistArr);
+
+      const playlistArr = [];
+      let nextPUrl = playlists.href;
+      do {
+        const nextPlaylists = await getDataByUrl(nextPUrl);
+        playlistArr.push(...nextPlaylists.data.items);
+        nextPUrl = nextPlaylists.data.next;
+      } while (nextPUrl !== null);
+      setPlaylists(playlistArr);
     };
     fetchData();
 
@@ -38,7 +38,7 @@ const Profile = () => {
 
   return (
     <>
-      {user && playlists && followedArtists && (
+      {user && followedArtists && playlists && (
         <>
           <User
             user={user}
