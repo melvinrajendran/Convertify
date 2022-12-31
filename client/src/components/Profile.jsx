@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getConvertifyProfile } from "../spotify";
 import User from "./User";
 import Playlists from "./Playlists";
+import Loader from './Loader';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -30,7 +31,7 @@ const Profile = () => {
 
   return (
     <>
-      {profile && followedArtists && playlists && (
+      {(profile && followedArtists && playlists) ? (
         <>
           <User
             user={profile}
@@ -42,6 +43,8 @@ const Profile = () => {
           />
           <Playlists playlists={playlists} />
         </>
+      ) : (
+        <Loader />
       )}
     </>
   );

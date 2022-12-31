@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import { token } from "../spotify";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PlaylistConverter from "./PlaylistConverter";
+import Footer from './Footer';
 
 const App = () => {
   const [accessToken, setAccessToken] = useState(null);
@@ -23,6 +24,7 @@ const App = () => {
               </Routes>
             </BrowserRouter>
           </div>
+          <Footer />
         </>
       ) : (
         <Login />

@@ -6,6 +6,7 @@ import { convertPlaylist, getPlaylistConverter } from "../spotify";
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
 import Switch from "./Switch";
+import Loader from './Loader';
 
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
@@ -37,7 +38,7 @@ const PlaylistConverter = () => {
 
   return (
     <>
-      {userId && playlist && items && (
+      {(userId && playlist && items) ? (
         <Row>
           <Col className="text-center mb-5 affix" md={6} xl={{ span: 5, offset: 1 }}>
             <img
@@ -86,6 +87,8 @@ const PlaylistConverter = () => {
             ))}
           </Col>
         </Row>
+      ) : (
+        <Loader />
       )}
     </>
   );
