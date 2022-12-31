@@ -72,8 +72,9 @@ h4,
 h5,
 h6 {
   font-family: "Circular Std";
-  font-weight: 700;
+  font-weight: 900;
   color: #ffffff;
+  letter-spacing: -0.125rem;
 }
 
 .fullscreen-container {

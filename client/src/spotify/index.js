@@ -6,7 +6,6 @@ import { getHashParameters } from "../utilities";
  * 
  * Loader
  * 404
- * Handle error for long playlists
  * Update UI to be meaningful
  * Fuzzy search?
  */
@@ -232,9 +231,7 @@ export const getPlaylistConverter = (playlistId) => {
  * 
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/search
  */
-export const searchForTracks = (name, artist) => {
-  return axios.get(`https://api.spotify.com/v1/search?q=${encodeURI(`${name} artist:${artist}`)}&type=track&limit=50`, { headers });
-};
+export const searchForTracks = (name, artist) => axios.get(`https://api.spotify.com/v1/search?q=${encodeURIComponent(`${name} artist:${artist}`)}&type=track&limit=50`, { headers });
 
 /**
  * Creates a playlist for a user.
@@ -243,8 +240,8 @@ export const searchForTracks = (name, artist) => {
  * 
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/create-playlist
  */
-export const createPlaylist = (userId, name) => {
-  const body = { name };
+export const createPlaylist = (userId, name, description) => {
+  const body = { name, description };
   return axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, body, { headers });
 };
 
@@ -296,7 +293,7 @@ export const convertPlaylist = (userId, name, items, toClean) => {
   axios.all(promises)
     .then(() => {
       if (uris.length) {
-        createPlaylist(userId, `${name} ${toClean ? `(Clean)` : `(Explicit)`}`)
+        createPlaylist(userId, `${name} ${toClean ? `(Clean)` : `(Explicit)`}`, "This playlist was created using Convertify.")
           .then((response) => {
             const newPlaylistId = response.data.id;
             while (uris.length) {
