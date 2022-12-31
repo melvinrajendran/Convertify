@@ -7,7 +7,7 @@ const User = (props) => {
     <div className="text-center px-5 mb-5">
       <img className="img-fluid rounded-circle" src={props.user.images[0].url} width="175" height="175" alt="avatar" />
       <h1 className="my-4 display-4 bold-title">
-        <a className="white-to-green" href={props.user.external_urls.spotify} target="_blank" rel="noopener noreferrer" title="See your profile on Spotify">
+        <a className="white-to-green" href={props.user.external_urls.spotify} target="_blank" rel="noopener noreferrer" title="View your Spotify profile">
           {props.user.display_name}
         </a>
       </h1>

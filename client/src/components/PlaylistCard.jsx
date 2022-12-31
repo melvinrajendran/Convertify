@@ -11,7 +11,7 @@ const PlaylistCard = (props) => {
         <Card.Title className="px-2">
           <h5 className="truncate-text">{props.info.name}</h5>
         </Card.Title>
-        <Link className="stretched-link" to={`/playlists/${props.info.id}`} />
+        <Link className="stretched-link" to={`/playlists/${props.info.id}`} title={`Convert ${props.info.name}`} />
       </Card.Body>
     </Card>
   );

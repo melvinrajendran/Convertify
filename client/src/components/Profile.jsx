@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { getDataByUrl, getConvertifyProfile } from "../spotify";
+import { getConvertifyProfile } from "../spotify";
 import User from "./User";
 import Playlists from "./Playlists";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
-  const [followedArtists, setFollowedArtists] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const [followedArtists, setFollowedArtists] = useState(0);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { user, followedArtists, playlists } = await getConvertifyProfile();
-      setUser(user);
+    const fetchData = () => {
+      getConvertifyProfile()
+        .then((response) => {
+          const { profile, followedArtists, playlists } = response;
 
-      const artistArr = [];
-      let nextAUrl = followedArtists.artists.href;
-      do {
-        const nextArtists = await getDataByUrl(nextAUrl);
-        artistArr.push(...nextArtists.data.artists.items);
-        nextAUrl = nextArtists.data.artists.next;
-      } while (nextAUrl !== null);
-      setFollowedArtists(artistArr);
-
-      const playlistArr = [];
-      let nextPUrl = playlists.href;
-      do {
-        const nextPlaylists = await getDataByUrl(nextPUrl);
-        playlistArr.push(...nextPlaylists.data.items);
-        nextPUrl = nextPlaylists.data.next;
-      } while (nextPUrl !== null);
-      setPlaylists(playlistArr);
+          setProfile(profile);
+          setFollowedArtists(followedArtists);
+          setPlaylists(playlists);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     };
+
     fetchData();
 
     document.title = "Convertify | Profile";
@@ -38,14 +30,14 @@ const Profile = () => {
 
   return (
     <>
-      {user && followedArtists && playlists && (
+      {profile && followedArtists && playlists && (
         <>
           <User
-            user={user}
+            user={profile}
             statistics={[
               { number: playlists.length, label: "Playlists" },
-              { number: user.followers.total, label: "Followers" },
-              { number: followedArtists.length, label: "Following" }
+              { number: profile.followers.total, label: "Followers" },
+              { number: followedArtists, label: "Following" }
             ]}
           />
           <Playlists playlists={playlists} />
