@@ -1,3 +1,17 @@
 .loader-container {
   height: calc(100vh - 10.125rem);
 }
+
+@keyframes rotating {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+
+  to {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  animation: rotating 3s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
+}
