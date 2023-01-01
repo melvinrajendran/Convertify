@@ -1,28 +1,28 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { convertPlaylist, getPlaylistConverter } from "../spotify";
+import { convertPlaylist, getConvertedPlaylist, getPlaylistConverter } from "../spotify";
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
-import Switch from "./Switch";
 import Loader from './Loader';
+import Footer from './Footer';
 
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
 
-  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [items, setItems] = useState([]);
-  const [toClean, setToClean] = useState(true);
+  const [convertedItems, setConvertedItems] = useState(null);
 
   useEffect(() => {
     const fetchData = () => {
       getPlaylistConverter(playlistId)
         .then((response) => {
-          const { userId, playlist, items } = response;
+          const { user, playlist, items } = response;
 
-          setUserId(userId);
+          setUser(user);
           setPlaylist(playlist);
           setItems(items);
         })
@@ -36,57 +36,114 @@ const PlaylistConverter = () => {
 
   useEffect(() => document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`, [playlist]);
 
+  const handleClick = (toClean) => {
+    const playlistID = convertPlaylist(user.id, playlist.name, items, toClean);
+    // if (playlistID) {
+    //   getConvertedPlaylist(playlistID)
+    //     .then((response) => {
+    //       setConvertedItems(response);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else {
+    //   console.log("unfinished business");
+    // }
+  }
+
   return (
     <>
-      {(userId && playlist && items) ? (
-        <Row>
-          <Col className="text-center mb-5 affix" md={6} xl={{ span: 5, offset: 1 }}>
-            <img
-              className="mb-3"
-              src={playlist.images.length > 0 ? playlist.images[0].url : process.env.PUBLIC_URL + "/empty-playlist.png"}
-              alt="playlist"
-              width="250"
-              height="250"
-            />
-            <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
-            <p className="bold-title mb-5">By {playlist.owner.display_name}</p>
-            <div className="d-flex align-items-center justify-content-center">
-              <span className="me-4 label-text">EXPLICIT </span>
-              <Switch isOn={toClean} handleToggle={() => setToClean(!toClean)} title="Toggle the conversion type" />
-              <span className="ms-4 label-text"> CLEAN</span>
-            </div>
-            <div className="py-3" />
-            <PillButton
-              text="Convert"
-              title={`Convert ${playlist.name} to ${toClean ? "clean" : "explicit"}`}
-              // href="/"
-              disabled={playlist.images.length > 0 ? false : true}
-              onClick={() => convertPlaylist(userId, playlist.name, items, toClean)}
-            />
-          </Col>
-          <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 6 }} xl={{ span: 4, offset: 6 }}>
-            {items.map((item, index) => (
-              <div key={index}>
-                <img
-                  className="track-image float-start"
-                  src={item.track.album.images[0] && item.track.album.images[0].url}
-                  alt="track"
-                  width="45"
-                  height="45"
-                />
-                <div className="d-inline">
-                  <p className="m-0 truncate-text">{item.track.name}</p>
-                  <p className="artist-names truncate-text">
-                    {item.track.explicit && !toClean && <span>&#127348; </span>}
-                    {item.track.artists.map((artist, index) => (index < item.track.artists.length - 1 ? artist.name + ", " : artist.name))}
-                    &nbsp;&nbsp;·&nbsp;&nbsp;
-                    {item.track.album.name}
-                  </p>
+      {(user && playlist && items) ? (
+        <Container fluid className="px-5">
+          <Row>
+            <Col className="text-center mb-5">
+              <img
+                className="img-fluid mb-3"
+                src={playlist.images.length ? playlist.images[0].url : process.env.PUBLIC_URL + "/empty-playlist.png"}
+                alt="playlist"
+                width="250"
+                height="250"
+              />
+              <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
+              <p className=" bold-title mb-5">{playlist.owner.display_name}</p>
+              <Row className="align-items-center">
+                <Col xl={6} className="text-start mb-5 mb-xl-0">
+                  <h2 className="d-inline-block display-5 bold-title">Converter</h2><br />
+                  <p className="d-inline-block fs-5 gray-text mb-0">Convert this playlist to explicit or clean.</p>
+                </Col>
+                <Col xl={6} className="text-xl-end">
+                  <PillButton
+                    className="stretch"
+                    outline
+                    text="Explicit"
+                    title={`Convert ${playlist.name} to explicit`}
+                    disabled={playlist.images.length ? false : true}
+                    onClick={() => handleClick(false)}
+                  />
+                  <span className="px-4" />
+                  <PillButton
+                    className="stretch"
+                    text="Clean"
+                    title={`Convert ${playlist.name} to clean`}
+                    disabled={playlist.images.length ? false : true}
+                    onClick={() => handleClick(true)}
+                  />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          <Row className="mb-5">
+            <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 1 }} xl={{ span: 4, offset: 1 }}>
+              <p className="h3 mb-4 text-center"><span className="bold-title">Original Playlist · </span>{items.length} Songs</p>
+              {items.map((item, index) => (
+                <div key={index}>
+                  <img
+                    className="track-image float-start"
+                    src={item.track.album.images[0] && item.track.album.images[0].url}
+                    alt="track"
+                    width="45"
+                    height="45"
+                  />
+                  <div className="d-inline">
+                    <p className="m-0 truncate-text">{item.track.name}</p>
+                    <p className="artist-names truncate-text">
+                      {item.track.explicit && <span>&#127348; </span>}
+                      {item.track.artists.map((artist, index) => (index < item.track.artists.length - 1 ? artist.name + ", " : artist.name))}
+                      &nbsp;&nbsp;·&nbsp;&nbsp;
+                      {item.track.album.name}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Col>
-        </Row>
+              ))}
+            </Col>
+            {convertedItems && (
+              <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 0 }} xl={{ span: 4, offset: 2 }}>
+                <p className="h3 mb-4 text-center"><span className="bold-title">Converted Playlist · </span>{convertedItems.length} Songs</p>
+                {convertedItems.map((item, index) => (
+                  <div key={index}>
+                    <img
+                      className="track-image float-start"
+                      src={item.track.album.images[0] && item.track.album.images[0].url}
+                      alt="track"
+                      width="45"
+                      height="45"
+                    />
+                    <div className="d-inline">
+                      <p className="m-0 truncate-text">{item.track.name}</p>
+                      <p className="artist-names truncate-text">
+                        {item.track.explicit && <span>&#127348; </span>}
+                        {item.track.artists.map((artist, index) => (index < item.track.artists.length - 1 ? artist.name + ", " : artist.name))}
+                        &nbsp;&nbsp;·&nbsp;&nbsp;
+                        {item.track.album.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </Col>
+            )}
+          </Row>
+          <Footer />
+        </Container>
       ) : (
         <Loader />
       )}

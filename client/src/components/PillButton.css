@@ -26,6 +26,12 @@
   color: black;
 }
 
+.button-outline:disabled {
+  background-color: transparent;
+  border-color: white;
+  color: white;
+}
+
 .button-color {
   background-color: #1db954;
   border-color: #1db954;
@@ -47,4 +53,8 @@
 .button-color:disabled {
   background-color: #1db954;
   border-color: #1db954;
+}
+
+.stretch {
+  width: 12rem;
 }

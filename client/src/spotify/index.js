@@ -3,11 +3,14 @@ import { getHashParameters } from "../utilities";
 
 /**
  * TODO
- * 
- * Loader
- * 404
+ *
  * Update UI to be meaningful
+ * toasts for conversion
+ * 404
+ * remove switch if unnecessary
  * Fuzzy search?
+ * optimize API requests w query params
+ * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
  */
 
 /**
@@ -196,16 +199,24 @@ export const getConvertifyProfile = () => {
 export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
 
 /**
+ * Gets the items of a specific playlist.
+ * @param {string} playlistId the ID of the playlist
+ * 
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlists-tracks
+ */
+export const getPlaylistItems = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, { headers });
+
+/**
  * Gets the data to render the current user's playlist's converter.
  * @param {string} playlistId the ID of the playlist
  */
 export const getPlaylistConverter = (playlistId) => {
-  return axios.all([getProfile(), getPlaylist(playlistId)])
+  return axios.all([getProfile(), getPlaylist(playlistId), getPlaylistItems(playlistId)])
     .then(
-      axios.spread(async (user, playlist) => {
+      axios.spread(async (user, playlist, items) => {
         // Chain GET requests to get all of the playlist's tracks
         const itemArr = [];
-        let nextUrl = playlist.data.tracks.href;
+        let nextUrl = items.data.href;
         do {
           const nextItems = await getDataByUrl(nextUrl);
           itemArr.push(...nextItems.data.items);
@@ -213,7 +224,7 @@ export const getPlaylistConverter = (playlistId) => {
         } while (nextUrl !== null);
 
         return {
-          userId: user.data.id,
+          user: user.data,
           playlist: playlist.data,
           items: itemArr
         }
@@ -263,6 +274,7 @@ export const addItemsToPlaylist = (playlistId, uris) => {
  * @param {string} name the name of the playlist
  * @param {string} items the items in the playlist
  * @param {boolean} toClean the type to which the tracks will be converted
+ * @returns {string} the ID of the converted playlist
  */
 export const convertPlaylist = (userId, name, items, toClean) => {
   const uris = [];
@@ -299,12 +311,41 @@ export const convertPlaylist = (userId, name, items, toClean) => {
             while (uris.length) {
               addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
             }
+
+            return newPlaylistId;
           });
+
+        // generate success toast
       } else {
-        // playlist could not be converted
+        // playlist could not be converted -- generate failure toast
+
+        return null;
       }
     })
     .catch((error) => {
       console.log(error);
     })
 };
+
+/**
+ * Gets the data to render the current user's converted playlist.
+ * @param {string} playlistId the ID of the playlist
+ */
+export const getConvertedPlaylist = (playlistId) => {
+  return getPlaylistItems(playlistId)
+    .then(async (response) => {
+      // Chain GET requests to get all of the playlist's tracks
+      const itemArr = [];
+      let nextUrl = response.data.href;
+      do {
+        const nextItems = await getDataByUrl(nextUrl);
+        itemArr.push(...nextItems.data.items);
+        nextUrl = nextItems.data.next;
+      } while (nextUrl !== null);
+
+      return itemArr;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

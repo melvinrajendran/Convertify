@@ -3,6 +3,7 @@ import { getConvertifyProfile } from "../spotify";
 import User from "./User";
 import Playlists from "./Playlists";
 import Loader from './Loader';
+import Footer from './Footer';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -42,6 +43,7 @@ const Profile = () => {
             ]}
           />
           <Playlists playlists={playlists} />
+          <Footer />
         </>
       ) : (
         <Loader />

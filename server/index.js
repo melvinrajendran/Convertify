@@ -1,12 +1,13 @@
-/**
- * Spotify Web API Authorization Code Flow
- * https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
- */
-
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const request = require("request");
+
+/**
+ * SPOTIFY WEB API AUTHORIZATION CODE FLOW
+ * 
+ * https://developer.spotify.com/documentation/general/guides/authorization/code-flow/
+ */
 
 const app = express();
 
@@ -33,6 +34,7 @@ const generateRandomString = (length) => {
   return result;
 };
 
+// Render the React application
 app.get("/", function (req, res) {
   res.render(path.resolve(__dirname, "../client/build/index.html"));
 });
@@ -40,17 +42,17 @@ app.get("/", function (req, res) {
 // Request user authorization
 app.get("/login", function (req, res) {
   const state = generateRandomString(16);
-  const scope = "user-read-private user-follow-read playlist-modify-private playlist-read-collaborative user-read-email playlist-read-private playlist-modify-public";
+  const scope = "ugc-image-upload playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-read user-read-email user-read-private";
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
-      new URLSearchParams({
-        client_id: CLIENT_ID,
-        response_type: "code",
-        redirect_uri: REDIRECT_URI,
-        state: state,
-        scope: scope
-      }).toString()
+    new URLSearchParams({
+      client_id: CLIENT_ID,
+      response_type: "code",
+      redirect_uri: REDIRECT_URI,
+      state: state,
+      scope: scope
+    }).toString()
   );
 });
 
@@ -62,9 +64,9 @@ app.get("/callback", function (req, res) {
   if (state === null) {
     res.redirect(
       "/#" +
-        new URLSearchParams({
-          error: "state_mismatch"
-        }).toString()
+      new URLSearchParams({
+        error: "state_mismatch"
+      }).toString()
     );
   } else {
     const authOptions = {
