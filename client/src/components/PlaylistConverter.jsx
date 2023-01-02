@@ -35,19 +35,16 @@ const PlaylistConverter = () => {
 
   useEffect(() => document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`, [playlist]);
 
-  const handleClick = (toClean) => {
-    const playlistID = convertPlaylist(user.id, playlist.name, items, toClean);
-    // if (playlistID) {
-    //   getConvertedPlaylist(playlistID)
-    //     .then((response) => {
-    //       setConvertedItems(response);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // } else {
-    //   console.log("unfinished business");
-    // }
+  const handleClick = async (toClean) => {
+    const playlistId = await convertPlaylist(user.id, playlist.name, items, toClean);
+    console.log(playlistId);
+    getConvertedPlaylist(playlistId)
+      .then((response) => {
+        setConvertedItems(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -92,7 +89,11 @@ const PlaylistConverter = () => {
             </Col>
           </Row>
           <Row className="mb-5">
-            <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 1 }} xl={{ span: 4, offset: 1 }}>
+            <Col
+              xs={{ span: 10, offset: 1 }}
+              md={convertedItems ? { span: 5, offset: 1 } : { span: 8, offset: 2 }}
+              xl={convertedItems ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
+            >
               <p className="h3 mb-4 text-center"><span className="bold-title">Original Playlist · </span>{items.length} Songs</p>
               {items.map((item, index) => (
                 <div key={index}>

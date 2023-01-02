@@ -6,6 +6,7 @@ import { getHashParameters } from "../utilities";
  *
  * Update UI to be meaningful
  * toasts for conversion
+ * in-order conversion
  * 404
  * remove switch if unnecessary
  * Fuzzy search?
@@ -276,7 +277,7 @@ export const addItemsToPlaylist = (playlistId, uris) => {
  * @param {boolean} toClean the type to which the tracks will be converted
  * @returns {string} the ID of the converted playlist
  */
-export const convertPlaylist = (userId, name, items, toClean) => {
+export const convertPlaylist = async (userId, name, items, toClean) => {
   const uris = [];
   const promises = [];
 
@@ -302,29 +303,24 @@ export const convertPlaylist = (userId, name, items, toClean) => {
     }
   });
 
-  axios.all(promises)
-    .then(() => {
-      if (uris.length) {
-        createPlaylist(userId, `${name} ${toClean ? `(Clean)` : `(Explicit)`}`, "This playlist was created using Convertify.")
-          .then((response) => {
-            const newPlaylistId = response.data.id;
-            while (uris.length) {
-              addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
-            }
+  await axios.all(promises);
 
-            return newPlaylistId;
-          });
+  if (uris.length) {
+    const response = await createPlaylist(userId, `${name} (${toClean ? `Clean` : `Explicit`})`, "This playlist was created using Convertify.");
+    const newPlaylistId = response.data.id;
 
-        // generate success toast
-      } else {
-        // playlist could not be converted -- generate failure toast
+    while (uris.length) {
+      addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
+    }
 
-        return null;
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    // generate success toast
+
+    return newPlaylistId;
+  }
+
+  // generate failure toast
+
+  return null;
 };
 
 /**
