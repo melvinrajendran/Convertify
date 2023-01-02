@@ -105,7 +105,7 @@ const PlaylistConverter = () => {
               md={convertedItems ? { span: 5, offset: 1 } : { span: 8, offset: 2 }}
               xl={convertedItems ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
             >
-              <p className="h3 mb-4 text-center"><span className="bold-title">Original Playlist · </span>{items.length} Songs</p>
+              <p className="fs-3 mb-4 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
               {items.map((item, index) => (
                 <div key={index}>
                   <img
@@ -129,7 +129,7 @@ const PlaylistConverter = () => {
             </Col>
             {convertedItems && (
               <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 0 }} xl={{ span: 4, offset: 2 }}>
-                <p className="h3 mb-4 text-center"><span className="bold-title">Converted Playlist · </span>{convertedItems.length} Songs</p>
+                <p className="h3 mb-4 text-center"><span className="bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
                 {convertedItems.map((item, index) => (
                   <div key={index}>
                     <img

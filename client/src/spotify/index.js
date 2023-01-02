@@ -4,8 +4,9 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * toasts for conversion
- * in-order conversion
+ * convert w description and image
+ * delete playlist, other misc. actions
+ * conversion loading animation/progress bar?
  * fuzzy search?
  * optimize API requests w query params
  * animations
@@ -278,11 +279,10 @@ export const addItemsToPlaylist = (playlistId, uris) => {
  */
 export const convertPlaylist = async (userId, name, items, toClean) => {
   const uris = [];
-  const promises = [];
 
-  items.forEach((item) => {
+  for (const item of items) {
     if ((toClean && item.track.explicit) || (!toClean && !item.track.explicit)) {
-      promises.push(
+      await (
         searchForTracks(item.track.name, item.track.artists[0].name)
           .then((response) => {
             let tracks = response.data.tracks.items;
@@ -300,16 +300,14 @@ export const convertPlaylist = async (userId, name, items, toClean) => {
     } else {
       uris.push(item.track.uri);
     }
-  });
-
-  await axios.all(promises);
+  }
 
   if (uris.length) {
     const response = await createPlaylist(userId, `${name} (${toClean ? `Clean` : `Explicit`})`, "This playlist was created using Convertify.");
     const newPlaylistId = response.data.id;
 
     while (uris.length) {
-      addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
+      await addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
     }
 
     return newPlaylistId;
