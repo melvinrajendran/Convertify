@@ -6,10 +6,11 @@ import { getHashParameters } from "../utilities";
  *
  * toasts for conversion
  * in-order conversion
- * Fuzzy search?
+ * fuzzy search?
  * optimize API requests w query params
  * animations
  * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
+ * publish to heroku
  */
 
 /**
@@ -311,14 +312,8 @@ export const convertPlaylist = async (userId, name, items, toClean) => {
       addItemsToPlaylist(newPlaylistId, uris.splice(0, 100));
     }
 
-    // generate success toast
-
     return newPlaylistId;
   }
-
-  // generate failure toast
-
-  return null;
 };
 
 /**

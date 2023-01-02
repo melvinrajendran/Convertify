@@ -6,6 +6,7 @@ import { convertPlaylist, getConvertedPlaylist, getPlaylistConverter } from "../
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
 import Loader from './Loader';
+import Toast from './Toast';
 
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
@@ -14,6 +15,8 @@ const PlaylistConverter = () => {
   const [playlist, setPlaylist] = useState(null);
   const [items, setItems] = useState([]);
   const [convertedItems, setConvertedItems] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   useEffect(() => {
     const fetchData = () => {
@@ -37,13 +40,22 @@ const PlaylistConverter = () => {
 
   const handleClick = async (toClean) => {
     const playlistId = await convertPlaylist(user.id, playlist.name, items, toClean);
-    getConvertedPlaylist(playlistId)
-      .then((response) => {
-        setConvertedItems(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+    if (playlistId) {
+      getConvertedPlaylist(playlistId)
+        .then((response) => {
+          setConvertedItems(response);
+
+          setToastMessage("Successfully converted this playlist.");
+          setShowToast(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setToastMessage("This playlist cannot be converted.");
+      setShowToast(true);
+    }
   }
 
   return (
@@ -141,6 +153,7 @@ const PlaylistConverter = () => {
               </Col>
             )}
           </Row>
+          <Toast show={showToast} setShow={setShowToast} message={toastMessage} />
         </Container>
       ) : (
         <Loader />
