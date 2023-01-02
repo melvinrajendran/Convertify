@@ -6,7 +6,6 @@ import { convertPlaylist, getConvertedPlaylist, getPlaylistConverter } from "../
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
 import Loader from './Loader';
-import Footer from './Footer';
 
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
@@ -73,14 +72,14 @@ const PlaylistConverter = () => {
                 </Col>
                 <Col xl={6} className="text-xl-end">
                   <PillButton
-                    className="stretch"
+                    className="stretch mb-3 mb-md-0 me-md-5"
                     outline
                     text="Explicit"
                     title={`Convert ${playlist.name} to explicit`}
                     disabled={playlist.images.length ? false : true}
                     onClick={() => handleClick(false)}
                   />
-                  <span className="px-4" />
+                  <br className="d-md-none" />
                   <PillButton
                     className="stretch"
                     text="Clean"
@@ -142,7 +141,6 @@ const PlaylistConverter = () => {
               </Col>
             )}
           </Row>
-          <Footer />
         </Container>
       ) : (
         <Loader />

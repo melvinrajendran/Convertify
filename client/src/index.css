@@ -120,9 +120,3 @@ h6 {
 .description-text {
   max-width: 550px;
 }
-
-.absolute-footer {
-  left: 0; 
-  right: 0;
-  bottom: 3rem;
-}
