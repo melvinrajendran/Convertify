@@ -37,7 +37,6 @@ const PlaylistConverter = () => {
 
   const handleClick = async (toClean) => {
     const playlistId = await convertPlaylist(user.id, playlist.name, items, toClean);
-    console.log(playlistId);
     getConvertedPlaylist(playlistId)
       .then((response) => {
         setConvertedItems(response);

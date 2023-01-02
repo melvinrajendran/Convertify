@@ -4,13 +4,11 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * Update UI to be meaningful
  * toasts for conversion
  * in-order conversion
- * 404
- * remove switch if unnecessary
  * Fuzzy search?
  * optimize API requests w query params
+ * animations
  * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
  */
 
