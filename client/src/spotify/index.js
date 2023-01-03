@@ -4,7 +4,6 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * delete playlist, other misc. actions
  * conversion loading animation/progress bar?
  * fuzzy search?
  * optimize API requests w query params

@@ -97,7 +97,7 @@ const PlaylistConverter = () => {
                     className="stretch mb-3 mb-md-0 me-md-4"
                     outline
                     text="Explicit"
-                    title={`Convert ${playlist.name} to explicit`}
+                    title="Convert the playlist to explicit"
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(false)}
                   />
@@ -105,7 +105,7 @@ const PlaylistConverter = () => {
                   <PillButton
                     className={`stretch${convertedPlaylistId ? " mb-3 mb-md-0 me-md-4" : ""}`}
                     text="Clean"
-                    title={`Convert ${playlist.name} to clean`}
+                    title="Convert the playlist to clean"
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(true)}
                   />
