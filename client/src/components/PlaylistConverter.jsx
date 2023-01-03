@@ -15,6 +15,8 @@ const PlaylistConverter = () => {
   const [playlist, setPlaylist] = useState(null);
   const [items, setItems] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [convertedPlaylistId, setConvertedPlaylistId] = useState(null);
   const [convertedItems, setConvertedItems] = useState(null);
 
@@ -42,6 +44,8 @@ const PlaylistConverter = () => {
   useEffect(() => document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`, [playlist]);
 
   const clickConvert = async (toClean) => {
+    setIsLoading(true);
+
     const playlistId = await convertPlaylist(user.id, playlist, items, toClean);
 
     if (playlistId) {
@@ -50,6 +54,8 @@ const PlaylistConverter = () => {
           setConvertedPlaylistId(playlistId);
           setConvertedItems(response);
 
+          setIsLoading(false);
+
           setToastMessage("Successfully converted this playlist.");
           setShowToast(true);
         })
@@ -57,6 +63,8 @@ const PlaylistConverter = () => {
           console.log(error);
         });
     } else {
+      setIsLoading(false);
+
       setToastMessage("This playlist cannot be converted.");
       setShowToast(true);
     }
@@ -128,8 +136,8 @@ const PlaylistConverter = () => {
           <Row className="mb-5">
             <Col
               xs={{ span: 10, offset: 1, order: "second" }}
-              md={convertedItems ? { span: 5, offset: 1, order: "first" } : { span: 8, offset: 2, order: "first" }}
-              xl={convertedItems ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
+              md={(convertedItems || isLoading) ? { span: 5, offset: 1, order: "first" } : { span: 8, offset: 2, order: "first" }}
+              xl={(convertedItems || isLoading) ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
               className={convertedItems ? "mt-5 mt-md-0" : ""}
             >
               <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
@@ -181,6 +189,15 @@ const PlaylistConverter = () => {
                     </div>
                   </div>
                 ))}
+              </Col>
+            )}
+            {isLoading && (
+              <Col
+                xs={{ span: 10, offset: 1, order: "first" }}
+                md={{ span: 5, offset: 0, order: "last" }}
+                xl={{ span: 4, offset: 2 }}
+              >
+                <Loader />
               </Col>
             )}
           </Row>
