@@ -4,7 +4,6 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * playlist color styling
  * animations - conversion loading, etc.
  * fuzzy search?
  * optimize API requests w query params

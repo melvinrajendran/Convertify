@@ -79,7 +79,7 @@ const PlaylistConverter = () => {
           <Row>
             <Col className="text-center mb-5">
               <img
-                className="img-fluid mb-3"
+                className="img-fluid mb-3 playlist-image"
                 src={playlist.images.length ? playlist.images[0].url : process.env.PUBLIC_URL + "/empty-playlist.png"}
                 alt="playlist"
                 width="250"

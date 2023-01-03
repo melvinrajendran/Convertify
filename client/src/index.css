@@ -91,6 +91,11 @@ h6 {
   text-decoration: none;
 }
 
+.white-to-green:focus {
+  color: #1ed760;
+  transition: 200ms;
+}
+
 .white-to-green:visited {
   color: white;
   transition: 200ms;
@@ -119,4 +124,15 @@ h6 {
 
 .description-text {
   max-width: 550px;
+}
+
+a {
+  text-decoration: none;
+  border-radius: 2.5%;
+}
+
+a:focus {
+  border: none;
+  outline: solid 3px white;
+  outline-offset: 3px;
 }

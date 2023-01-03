@@ -19,6 +19,11 @@
   transition: 150ms ease-in-out;
 }
 
+.navbar-brand:focus .white-to-green {
+  color: #1ed760;
+  transition: 200ms;
+}
+
 .fab,
 .fas {
   font-size: 1.5rem;

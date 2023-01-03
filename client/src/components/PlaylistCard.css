@@ -21,3 +21,9 @@
   border-radius: 2.5%;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
+
+a:focus .playlist-card {
+  background-color: #282828;
+  transition: 200ms;
+}
+

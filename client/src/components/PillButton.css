@@ -23,6 +23,8 @@
   color: black;
   background-color: #169c46;
   border-color: #169c46;
+  outline: solid 3px #169c46;
+  outline-offset: 3px;
 }
 
 .button-color:disabled {
@@ -49,6 +51,8 @@
   background-color: white;
   border-color: white;
   color: black;
+  outline: solid 3px white;
+  outline-offset: 3px;
 }
 
 .button-outline:disabled {
@@ -73,6 +77,8 @@
 .button-delete:focus {
   background-color: #a7202e;
   border-color: #a7202e;
+  outline: solid 3px #a7202e;
+  outline-offset: 3px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 815px) {
