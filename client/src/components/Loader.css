@@ -1,5 +1,9 @@
-.loader-container {
+.loader-full-screen {
   height: calc(100vh - 10.125rem);
+}
+
+.loader {
+  margin-bottom: 3rem;
 }
 
 @keyframes rotating {

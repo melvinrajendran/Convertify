@@ -68,7 +68,7 @@ const Profile = () => {
           </Container>
         </>
       ) : (
-        <Loader />
+        <Loader fullScreen />
       )}
     </>
   );

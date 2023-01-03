@@ -4,7 +4,6 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * animation - conversion loading
  * fuzzy search?
  * optimize API requests w query params
  * 

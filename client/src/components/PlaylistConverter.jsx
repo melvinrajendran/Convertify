@@ -204,7 +204,7 @@ const PlaylistConverter = () => {
           <Toast show={showToast} setShow={setShowToast} message={toastMessage} />
         </Container>
       ) : (
-        <Loader />
+        <Loader fullScreen />
       )}
     </>
   );
