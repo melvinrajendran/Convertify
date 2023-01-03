@@ -85,7 +85,7 @@ const PlaylistConverter = () => {
                 width="250"
                 height="250"
               />
-              <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
+              <h1 className="playlist-title truncate-text display-5 bold-title mb-2">{playlist.name}</h1>
               <p className=" bold-title mb-5">{playlist.owner.display_name}</p>
               <Row className="align-items-center">
                 <Col xl={4} className="text-start mb-5 mb-xl-0">
@@ -97,7 +97,7 @@ const PlaylistConverter = () => {
                     className="stretch mb-3 mb-md-0 me-md-4"
                     outline
                     text="Explicit"
-                    title="Convert the playlist to explicit"
+                    title="Convert this playlist to explicit"
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(false)}
                   />
@@ -105,7 +105,7 @@ const PlaylistConverter = () => {
                   <PillButton
                     className={`stretch${convertedPlaylistId ? " mb-3 mb-md-0 me-md-4" : ""}`}
                     text="Clean"
-                    title="Convert the playlist to clean"
+                    title="Convert this playlist to clean"
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(true)}
                   />
@@ -127,11 +127,12 @@ const PlaylistConverter = () => {
           </Row>
           <Row className="mb-5">
             <Col
-              xs={{ span: 10, offset: 1 }}
-              md={convertedItems ? { span: 5, offset: 1 } : { span: 8, offset: 2 }}
+              xs={{ span: 10, offset: 1, order: "second" }}
+              md={convertedItems ? { span: 5, offset: 1, order: "first" } : { span: 8, offset: 2, order: "first" }}
               xl={convertedItems ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
+              className={convertedItems ? "mt-5 mt-md-0" : ""}
             >
-              <p className="fs-3 mb-4 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
+              <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
               {items.map((item, index) => (
                 <div key={index}>
                   <img
@@ -154,8 +155,12 @@ const PlaylistConverter = () => {
               ))}
             </Col>
             {convertedItems && (
-              <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 0 }} xl={{ span: 4, offset: 2 }}>
-                <p className="fs-3 mb-4 text-center"><span className="h3 bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
+              <Col
+                xs={{ span: 10, offset: 1, order: "first" }}
+                md={{ span: 5, offset: 0, order: "last" }}
+                xl={{ span: 4, offset: 2 }}
+              >
+                <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
                 {convertedItems.map((item, index) => (
                   <div key={index}>
                     <img

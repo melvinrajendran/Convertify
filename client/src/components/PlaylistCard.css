@@ -1,10 +1,10 @@
 .playlist-card {
-  max-height: 21rem;
+  max-height: 22rem;
   max-width: 16rem;
-  min-height: 21rem;
+  min-height: 22rem;
   min-width: 16rem;
   border: none;
-  border-radius: 2%;
+  border-radius: 2.5%;
   background-color: #181818;
   transition: 200ms;
 }
@@ -13,4 +13,11 @@
   background-color: #282828;
   transition: 200ms;
   cursor: pointer;
+}
+
+.card-img {
+  width: 13.125rem;
+  height: 13.125rem;
+  border-radius: 2.5%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }

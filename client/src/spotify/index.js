@@ -4,10 +4,10 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * conversion loading animation/progress bar?
+ * playlist color styling
+ * animations - conversion loading, etc.
  * fuzzy search?
  * optimize API requests w query params
- * animations
  * 
  * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
  * publish to heroku
