@@ -58,3 +58,27 @@
 .stretch {
   width: 12rem;
 }
+
+.button-delete {
+  background-color: #D0383C;
+  border-color: #D0383C;
+  color: white;
+  transition: 300ms;
+}
+
+.button-delete:hover {
+  background-color: #da1d23;
+  border-color: #da1d23;
+  transition: 300ms;
+}
+
+.button-delete:focus {
+  background-color: #da1d23;
+  border-color: #da1d23;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 815px) {
+  .delete {
+    margin-top: 1rem;
+  }
+}

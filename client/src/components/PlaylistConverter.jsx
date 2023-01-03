@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { convertPlaylist, getConvertedPlaylist, getPlaylistConverter } from "../spotify";
+import { convertPlaylist, deletePlaylist, getConvertedPlaylist, getPlaylistConverter } from "../spotify";
 import "./PlaylistConverter.css";
 import PillButton from "./PillButton";
 import Loader from './Loader';
@@ -14,9 +14,12 @@ const PlaylistConverter = () => {
   const [user, setUser] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [items, setItems] = useState([]);
+
+  const [convertedPlaylistId, setConvertedPlaylistId] = useState(null);
   const [convertedItems, setConvertedItems] = useState(null);
-  const [showToast, setShowToast] = useState(false);
+
   const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const fetchData = () => {
@@ -38,12 +41,13 @@ const PlaylistConverter = () => {
 
   useEffect(() => document.title = `Convertify | Playlists${playlist ? ` | ${playlist.name}` : ``}`, [playlist]);
 
-  const handleClick = async (toClean) => {
-    const playlistId = await convertPlaylist(user.id, playlist.name, items, toClean);
+  const clickConvert = async (toClean) => {
+    const playlistId = await convertPlaylist(user.id, playlist, items, toClean);
 
     if (playlistId) {
       getConvertedPlaylist(playlistId)
         .then((response) => {
+          setConvertedPlaylistId(playlistId);
           setConvertedItems(response);
 
           setToastMessage("Successfully converted this playlist.");
@@ -56,6 +60,16 @@ const PlaylistConverter = () => {
       setToastMessage("This playlist cannot be converted.");
       setShowToast(true);
     }
+  }
+
+  const clickDelete = (playlistId) => {
+    deletePlaylist(playlistId);
+
+    setConvertedPlaylistId(null);
+    setConvertedItems(null);
+
+    setToastMessage("Successfully deleted the converted playlist.");
+    setShowToast(true);
   }
 
   return (
@@ -74,27 +88,39 @@ const PlaylistConverter = () => {
               <h1 className="playlist-title display-5 bold-title mb-2">{playlist.name}</h1>
               <p className=" bold-title mb-5">{playlist.owner.display_name}</p>
               <Row className="align-items-center">
-                <Col xl={6} className="text-start mb-5 mb-xl-0">
+                <Col xl={4} className="text-start mb-5 mb-xl-0">
                   <h2 className="d-inline-block display-5 bold-title">Converter</h2><br />
                   <p className="d-inline-block fs-5 gray-text mb-0">Convert this playlist to explicit or clean.</p>
                 </Col>
-                <Col xl={6} className="text-xl-end">
+                <Col xl={8} className="text-xl-end">
                   <PillButton
-                    className="stretch mb-3 mb-md-0 me-md-5"
+                    className="stretch mb-3 mb-md-0 me-md-4"
                     outline
                     text="Explicit"
                     title={`Convert ${playlist.name} to explicit`}
                     disabled={playlist.images.length ? false : true}
-                    onClick={() => handleClick(false)}
+                    onClick={() => clickConvert(false)}
                   />
                   <br className="d-md-none" />
                   <PillButton
-                    className="stretch"
+                    className={`stretch${convertedPlaylistId ? " mb-3 mb-md-0 me-md-4" : ""}`}
                     text="Clean"
                     title={`Convert ${playlist.name} to clean`}
                     disabled={playlist.images.length ? false : true}
-                    onClick={() => handleClick(true)}
+                    onClick={() => clickConvert(true)}
                   />
+                  {convertedPlaylistId &&
+                    <>
+                      <br className="d-md-none" />
+                      <PillButton
+                        delete
+                        className="stretch delete"
+                        text="Delete"
+                        title="Delete the converted playlist"
+                        onClick={() => clickDelete(convertedPlaylistId)}
+                      />
+                    </>
+                  }
                 </Col>
               </Row>
             </Col>
@@ -129,7 +155,7 @@ const PlaylistConverter = () => {
             </Col>
             {convertedItems && (
               <Col xs={{ span: 10, offset: 1 }} md={{ span: 5, offset: 0 }} xl={{ span: 4, offset: 2 }}>
-                <p className="h3 mb-4 text-center"><span className="bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
+                <p className="fs-3 mb-4 text-center"><span className="h3 bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
                 {convertedItems.map((item, index) => (
                   <div key={index}>
                     <img

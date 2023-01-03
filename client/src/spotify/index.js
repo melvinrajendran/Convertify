@@ -4,12 +4,12 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * convert w description and image
  * delete playlist, other misc. actions
  * conversion loading animation/progress bar?
  * fuzzy search?
  * optimize API requests w query params
  * animations
+ * 
  * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
  * publish to heroku
  */
@@ -249,11 +249,17 @@ export const searchForTracks = (name, artist) => axios.get(`https://api.spotify.
  * Creates a playlist for a user.
  * @param {string} userId the ID of the user
  * @param {string} name the name of the playlist
+ * @param {string} description the description of the playlist
  * 
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/create-playlist
  */
-export const createPlaylist = (userId, name, description) => {
-  const body = { name, description };
+export const createPlaylist = (userId, name, isPublic, collaborative, description) => {
+  const body = {
+    name,
+    public: isPublic,
+    collaborative,
+    description
+  };
   return axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, body, { headers });
 };
 
@@ -272,12 +278,12 @@ export const addItemsToPlaylist = (playlistId, uris) => {
 /**
  * Converts a playlist's tracks from explicit to clean (or vice versa).
  * @param {string} userId the ID of the user
- * @param {string} name the name of the playlist
+ * @param {string} playlist the playlist to convert
  * @param {string} items the items in the playlist
  * @param {boolean} toClean the type to which the tracks will be converted
  * @returns {string} the ID of the converted playlist
  */
-export const convertPlaylist = async (userId, name, items, toClean) => {
+export const convertPlaylist = async (userId, playlist, items, toClean) => {
   const uris = [];
 
   for (const item of items) {
@@ -303,7 +309,7 @@ export const convertPlaylist = async (userId, name, items, toClean) => {
   }
 
   if (uris.length) {
-    const response = await createPlaylist(userId, `${name} (${toClean ? `Clean` : `Explicit`})`, "This playlist was created using Convertify.");
+    const response = await createPlaylist(userId, `${playlist.name} (${toClean ? `Clean` : `Explicit`})`, playlist.public, playlist.collaborative, "This playlist was created with Convertify.");
     const newPlaylistId = response.data.id;
 
     while (uris.length) {
@@ -336,3 +342,9 @@ export const getConvertedPlaylist = (playlistId) => {
       console.log(error);
     });
 }
+
+/**
+ * Removes the current user as a follower of a playlist.
+ * @param {*} playlistId the ID of the playlist
+ */
+export const deletePlaylist = (playlistId) => axios.delete(`https://api.spotify.com/v1/playlists/${playlistId}/followers`, { headers });
