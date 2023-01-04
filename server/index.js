@@ -42,7 +42,7 @@ app.get("/", function (req, res) {
 // Request user authorization
 app.get("/login", function (req, res) {
   const state = generateRandomString(16);
-  const scope = "ugc-image-upload playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-read user-read-email user-read-private";
+  const scope = "playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-read user-read-email user-read-private";
 
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
