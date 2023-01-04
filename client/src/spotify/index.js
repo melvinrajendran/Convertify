@@ -2,15 +2,6 @@ import axios from "axios";
 import { getHashParameters } from "../utilities";
 
 /**
- * TODO
- *
- * optimize API requests w query params
- * 
- * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
- * publish to heroku
- */
-
-/**
  * SPOTIFY WEB API AUTHORIZATION
  * 
  * https://developer.spotify.com/documentation/general/guides/authorization/
@@ -342,5 +333,7 @@ export const getConvertedPlaylist = (playlistId) => {
 /**
  * Removes the current user as a follower of a playlist.
  * @param {*} playlistId the ID of the playlist
+ * 
+ * https://developer.spotify.com/documentation/web-api/reference/#/operations/unfollow-playlist
  */
 export const deletePlaylist = (playlistId) => axios.delete(`https://api.spotify.com/v1/playlists/${playlistId}/followers`, { headers });
