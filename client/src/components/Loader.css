@@ -2,10 +2,6 @@
   height: calc(100vh - 10.125rem);
 }
 
-.loader {
-  margin-bottom: 3rem;
-}
-
 @keyframes rotating {
   from {
       -webkit-transform: rotate(0deg);

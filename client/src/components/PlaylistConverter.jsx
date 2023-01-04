@@ -138,7 +138,7 @@ const PlaylistConverter = () => {
               xs={{ span: 10, offset: 1, order: "second" }}
               md={(convertedItems || isLoading) ? { span: 5, offset: 1, order: "first" } : { span: 8, offset: 2, order: "first" }}
               xl={(convertedItems || isLoading) ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
-              className={convertedItems ? "mt-5 mt-md-0" : ""}
+              className={`${convertedItems ? "mt-5 mt-md-0" : ""} ${isLoading ? "mt-5 mt-md-0" : ""}`}
             >
               <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
               {items.map((item, index) => (

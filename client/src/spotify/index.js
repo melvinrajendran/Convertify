@@ -4,7 +4,6 @@ import { getHashParameters } from "../utilities";
 /**
  * TODO
  *
- * fuzzy search?
  * optimize API requests w query params
  * 
  * work for other users -------- SUBMIT QUOTA EXTENSION ON DASHBOARD
