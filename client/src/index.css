@@ -130,9 +130,3 @@ a {
   text-decoration: none;
   border-radius: 2.5%;
 }
-
-a:focus {
-  border: none;
-  outline: solid 3px white;
-  outline-offset: 3px;
-}
