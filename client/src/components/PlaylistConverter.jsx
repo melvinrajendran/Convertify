@@ -11,7 +11,7 @@ import Toast from './Toast';
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
 
-  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [playlist, setPlaylist] = useState(null);
   const [items, setItems] = useState([]);
 
@@ -27,9 +27,9 @@ const PlaylistConverter = () => {
     const fetchData = () => {
       getPlaylistConverter(playlistId)
         .then((response) => {
-          const { user, playlist, items } = response;
+          const { profile, playlist, items } = response;
 
-          setUser(user);
+          setProfile(profile);
           setPlaylist(playlist);
           setItems(items);
         })
@@ -46,7 +46,7 @@ const PlaylistConverter = () => {
   const clickConvert = async (toClean) => {
     setIsLoading(true);
 
-    const playlistId = await convertPlaylist(user.id, playlist, items, toClean);
+    const playlistId = await convertPlaylist(profile.id, playlist, items, toClean);
 
     if (playlistId) {
       getConvertedPlaylist(playlistId)
@@ -82,7 +82,7 @@ const PlaylistConverter = () => {
 
   return (
     <>
-      {(user && playlist && items) ? (
+      {(profile && playlist && items) ? (
         <Container fluid className="px-5">
           <Row>
             <Col className="text-center mb-5">

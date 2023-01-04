@@ -193,7 +193,7 @@ export const getConvertifyProfile = () => {
  * 
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
  */
-export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}`, { headers });
+export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}?fields=name,images,owner.display_name`, { headers });
 
 /**
  * Gets the items of a specific playlist.
@@ -210,7 +210,7 @@ export const getPlaylistItems = (playlistId) => axios.get(`https://api.spotify.c
 export const getPlaylistConverter = (playlistId) => {
   return axios.all([getProfile(), getPlaylist(playlistId), getPlaylistItems(playlistId)])
     .then(
-      axios.spread(async (user, playlist, items) => {
+      axios.spread(async (profile, playlist, items) => {
         // Chain GET requests to get all of the playlist's tracks
         const itemArr = [];
         let nextUrl = items.data.href;
@@ -221,7 +221,7 @@ export const getPlaylistConverter = (playlistId) => {
         } while (nextUrl !== null);
 
         return {
-          user: user.data,
+          profile: profile.data,
           playlist: playlist.data,
           items: itemArr
         }
