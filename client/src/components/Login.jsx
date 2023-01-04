@@ -3,7 +3,7 @@ import FullScreenContainer from "./FullScreenContainer";
 import PillButton from "./PillButton";
 
 const Login = () => {
-  const LOGIN_URI = process.env.LOGIN_URI;
+  const LOGIN_URI = process.env.REACT_APP_LOGIN_URI;
 
   useEffect(() => (document.title = "Convertify | Login"), []);
 
