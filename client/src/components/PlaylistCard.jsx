@@ -3,9 +3,9 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./PlaylistCard.css";
 
-const PUBLIC_URL = process.env.PUBLIC_URL;
-
 const PlaylistCard = (props) => {
+  const PUBLIC_URL = process.env.PUBLIC_URL;
+
   return (
     <Link to={`/playlists/${props.info.id}`} title={`Convert ${props.info.name}`}>
       <Card className="playlist-card">

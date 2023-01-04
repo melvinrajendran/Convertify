@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import "./Loader.css";
 
-const PUBLIC_URL = process.env.PUBLIC_URL;
-
 const Loader = (props) => {
+  const PUBLIC_URL = process.env.PUBLIC_URL;
+
   return <Container fluid className={`${props.fullScreen ? "loader-full-screen" : ""} text-center d-flex align-items-center justify-content-center`}>
     <Row>
       <Col>

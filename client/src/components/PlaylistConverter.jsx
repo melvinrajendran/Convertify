@@ -8,9 +8,9 @@ import PillButton from "./PillButton";
 import Loader from './Loader';
 import Toast from './Toast';
 
-const PUBLIC_URL = process.env.PUBLIC_URL;
-
 const PlaylistConverter = () => {
+  const PUBLIC_URL = process.env.PUBLIC_URL;
+
   const { playlistId } = useParams();
 
   const [profile, setProfile] = useState(null);
