@@ -35,12 +35,12 @@ const generateRandomString = (length) => {
 };
 
 // Render the React application
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.render(path.resolve(__dirname, "../client/build/index.html"));
 });
 
 // Request user authorization
-app.get("/login", function (req, res) {
+app.get("/login", (req, res) => {
   const state = generateRandomString(16);
   const scope = "playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-follow-read user-read-email user-read-private";
 
@@ -57,7 +57,7 @@ app.get("/login", function (req, res) {
 });
 
 // Request an access token
-app.get("/callback", function (req, res) {
+app.get("/callback", (req, res) => {
   const code = req.query.code || null;
   const state = req.query.state || null;
 
@@ -82,7 +82,7 @@ app.get("/callback", function (req, res) {
       json: true
     };
 
-    request.post(authOptions, function (error, response, body) {
+    request.post(authOptions, (error, response, body) => {
       if (!error && response.statusCode === 200) {
         const access_token = body.access_token;
         const refresh_token = body.refresh_token;
@@ -102,7 +102,7 @@ app.get("/callback", function (req, res) {
 });
 
 // Request a refreshed access token
-app.get("/refresh_token", function (req, res) {
+app.get("/refresh_token", (req, res) => {
   const refresh_token = req.query.refresh_token;
   const authOptions = {
     url: "https://accounts.spotify.com/api/token",
@@ -114,7 +114,7 @@ app.get("/refresh_token", function (req, res) {
     json: true
   };
 
-  request.post(authOptions, function (error, response, body) {
+  request.post(authOptions, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const access_token = body.access_token;
       res.send({ access_token: access_token });
@@ -122,9 +122,17 @@ app.get("/refresh_token", function (req, res) {
   });
 });
 
+// Serve the files for the built React app
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
+// Handle GET requests to /api route
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
+});
+
 // Handle all remaining requests within the React app
-app.get("*", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "../client/public", "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
 // Listen on the port specified above
