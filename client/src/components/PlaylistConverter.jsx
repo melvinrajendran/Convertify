@@ -8,6 +8,8 @@ import PillButton from "./PillButton";
 import Loader from './Loader';
 import Toast from './Toast';
 
+const PUBLIC_URL = process.env.PUBLIC_URL;
+
 const PlaylistConverter = () => {
   const { playlistId } = useParams();
 
@@ -88,7 +90,7 @@ const PlaylistConverter = () => {
             <Col className="text-center mb-5">
               <img
                 className="img-fluid mb-3 playlist-image"
-                src={playlist.images.length ? playlist.images[0].url : process.env.PUBLIC_URL + "/empty-playlist.png"}
+                src={playlist.images.length ? playlist.images[0].url : PUBLIC_URL + "/empty-playlist.png"}
                 alt="playlist"
                 width="250"
                 height="250"

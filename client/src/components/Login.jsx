@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import FullScreenContainer from "./FullScreenContainer";
 import PillButton from "./PillButton";
 
-const LOGIN_URI = "http://localhost:8888/login";
+const LOGIN_URI = process.env.LOGIN_URI;
 
 const Login = () => {
   useEffect(() => (document.title = "Convertify | Login"), []);
