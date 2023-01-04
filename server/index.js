@@ -34,9 +34,12 @@ const generateRandomString = (length) => {
   return result;
 };
 
+// Serve the files for the built React app
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 // Render the React application
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
+  res.render(path.resolve(__dirname, "../client/build/index.html"));
 });
 
 // Request user authorization
@@ -122,20 +125,12 @@ app.get("/refresh_token", (req, res) => {
   });
 });
 
-// Serve the files for the built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-
-// Handle GET requests to /api route
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
-
 // Handle all remaining requests within the React app
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
 
-// // Listen on the port specified above
-// app.listen(PORT, () => {
-//   console.log(`Server listening at http://localhost:${PORT}`);
-// });
+// Listen on the port specified above
+app.listen(PORT, () => {
+  console.log(`Server listening at http://localhost:${PORT}`);
+});
