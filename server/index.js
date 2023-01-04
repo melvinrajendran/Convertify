@@ -36,7 +36,7 @@ const generateRandomString = (length) => {
 
 // Render the React application
 app.get("/", (req, res) => {
-  res.render(path.resolve(__dirname, "../client/build/index.html"));
+  res.sendFile(path.resolve(__dirname, "../client/build/index.html"));
 });
 
 // Request user authorization
