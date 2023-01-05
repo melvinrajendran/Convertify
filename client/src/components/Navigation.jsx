@@ -12,7 +12,7 @@ const Navigation = () => {
             Convertify
           </div>
         </Navbar.Brand>
-        <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
+        <Nav className="ms-auto my-2 my-lg-0" style={{ maxHeight: "6.25rem" }} navbarScroll>
           <Nav.Link className="me-3" href="https://github.com/melvinrajendran/Convertify" target="_blank" rel="noopener noreferrer" title="View code on GitHub">
             <i className="fab fa-github"></i>
           </Nav.Link>
