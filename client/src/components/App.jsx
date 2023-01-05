@@ -16,7 +16,7 @@ const App = () => {
       {accessToken ? (
         <>
           <Navigation />
-          <div className="body p-5">
+          <div className="body">
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Profile />} />
