@@ -1,7 +1,7 @@
 {
   "name": "convertify",
   "version": "1.0.0",
-  "description": "The easiest way to convert your Spotify playlists to clean or explicit.",
+  "description": "The easiest way to convert your Spotify playlists between explicit and clean.",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
