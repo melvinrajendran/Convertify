@@ -9,7 +9,7 @@ import Loader from './Loader';
 import Toast from './Toast';
 
 const PlaylistConverter = () => {
-  const PUBLIC_URL = process.env.PUBLIC_URL;
+  const { PUBLIC_URL } = process.env;
 
   const { playlistId } = useParams();
 

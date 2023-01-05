@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./Loader.css";
 
 const Loader = (props) => {
-  const PUBLIC_URL = process.env.PUBLIC_URL;
+  const { PUBLIC_URL } = process.env;
 
   return <Container fluid className={`${props.fullScreen ? "loader-full-screen" : ""} text-center d-flex align-items-center justify-content-center`}>
     <Row>
