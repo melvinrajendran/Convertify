@@ -62,22 +62,22 @@
 }
 
 .button-delete {
-  background-color: #E22034;
-  border-color: #E22034;
+  background-color: #eb1d31;
+  border-color: #eb1d31;
   color: white;
   transition: 300ms;
 }
 
 .button-delete:hover {
-  background-color: #ea0f25;
-  border-color: #ea0f25;
+  background-color: #e64454;
+  border-color: #e64454;
   transition: 300ms;
 }
 
 .button-delete:focus {
-  background-color: #a7202e;
-  border-color: #a7202e;
-  outline: solid 0.1875rem #a7202e;
+  background-color: #ca1a2a;
+  border-color: #ca1a2a;
+  outline: solid 0.1875rem #ca1a2a;
   outline-offset: 0.1875rem;
 }
 
