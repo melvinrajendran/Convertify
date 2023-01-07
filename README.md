@@ -2,9 +2,7 @@
 
 <img width="1440" alt="Convertify" src="https://user-images.githubusercontent.com/44681827/211125867-bac28990-6035-42c3-bb0f-daed324bb358.png">
 
-Convertify is a web application that enables Spotify users to easily convert their playlists between explicit and clean.
-
-This is accomplished using the Spotify Web API, which grants read/write access to users' profile information and playlists, as well as an Express server and React front-end.
+Convertify is a web application that enables Spotify users to easily convert their playlists between explicit and clean. The application is built using the Spotify Web API, which grants read/write access to users' profile information and playlists upon authentication. In addition, it uses an Express server to handle API requests and serve the files for the front-end application, which uses React, responsive React Bootstrap components, and React Router for client-side routing.
 
 ## Background
 
