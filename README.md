@@ -37,15 +37,21 @@ This application was created to solve a problem that I often encountered during 
 
 <img width="1440" alt="Convertify-Deleted-Converted-Playlist" src="https://user-images.githubusercontent.com/44681827/211128093-1518b780-2f9c-4acb-b20d-51a95bef6c0d.png">
 
-## Getting Started with Create React App
+## Working with Convertify Locally
+
+The Express server and React application must be run separately:
+* Use the command `npm start` in the project's root directory to run the Express server.
+* Use the command `npm start` in the project's client directory to run the React application in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Available Scripts
+#### Available Scripts
 
 In the project directory, you can run:
 
-#### `npm start`
+##### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -53,12 +59,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-#### `npm test`
+##### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-#### `npm run build`
+##### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -68,7 +74,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-#### `npm run eject`
+##### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
