@@ -2,11 +2,44 @@
 
 <img width="1440" alt="Convertify" src="https://user-images.githubusercontent.com/44681827/211125867-bac28990-6035-42c3-bb0f-daed324bb358.png">
 
-Convertify is a web application that enables Spotify users to easily convert their playlists between explicit and clean. This is accomplished using the Spotify Web API, which grants read/write access to users' profile information and playlists, as well as an Express server and React front-end.
+Convertify is a web application that enables Spotify users to easily convert their playlists between explicit and clean.
+
+This is accomplished using the Spotify Web API, which grants read/write access to users' profile information and playlists, as well as an Express server and React front-end.
 
 ## Background
 
-This application was created to solve a problem that I often encountered while using Spotify's mobile application. During my time as a tutor for elementary and middle school students, I wanted to play my playlists while ensuring that all tracks were clean. However, the filter in Spotify's mobile application only skipped (and still skips) all explicit tracks rather than searching for and playing their corresponding clean versions. This functionality is exactly what Convertify provides, which is especially convenient for parents, teachers, DJs, and more who want to enjoy their favorite music while ensuring that it is clean.
+This application was created to solve a problem that I often encountered while using Spotify's mobile application.
+
+During my time as a tutor for elementary and middle school students, I wanted to play my playlists while ensuring that all tracks were clean. However, the filter in Spotify's mobile application only skipped (and still skips) all explicit tracks rather than searching for and playing their corresponding clean versions. This functionality is exactly what Convertify provides, which is especially convenient for parents, teachers, DJs, and more who want to enjoy their favorite music while ensuring that it is clean.
+
+## Features
+
+* Can convert playlists to explicit or clean
+* Can delete converted playlists
+* Familiar Spotify user interface
+* Retains login information between sessions using cookies
+
+## Screenshots
+
+### Logging In
+
+<img width="1440" alt="Convertify-Login" src="https://user-images.githubusercontent.com/44681827/211128044-54bd4278-d7a3-4ced-88ed-d68f4fdcb3e7.png">
+
+### Your Profile
+
+<img width="1440" alt="Convertify-Profile" src="https://user-images.githubusercontent.com/44681827/211128049-4470dbfe-2d4f-42b2-9f09-f3e07713db98.png">
+
+### The Playlist Converter
+
+<img width="1440" alt="Convertify-Playlist-Converter" src="https://user-images.githubusercontent.com/44681827/211128061-ca7d5676-48fd-4db0-a276-007dffa90f7f.png">
+
+### Converting a Playlist
+
+<img width="1440" alt="Convertify-Converted-Playlist" src="https://user-images.githubusercontent.com/44681827/211128083-db95ebae-b316-4042-b972-47e150faa101.png">
+
+### Deleting the Converted Playlist
+
+<img width="1440" alt="Convertify-Deleted-Converted-Playlist" src="https://user-images.githubusercontent.com/44681827/211128093-1518b780-2f9c-4acb-b20d-51a95bef6c0d.png">
 
 ## Getting Started with Create React App
 
