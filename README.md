@@ -4,6 +4,8 @@
 
 Convertify is a web application that enables Spotify users to easily convert their playlists between explicit and clean. The application is built using the Spotify Web API, which grants read/write access to users' profile information and playlists upon authentication. In addition, it uses an Express server to handle API requests and serve the files for the front-end, which uses React, responsive React Bootstrap components, and React Router for client-side routing.
 
+NOTE: Convertify is pending a quota extension from Spotify, meaning that Spotify users will be unable to log into the application. It should be approved within 2-6 weeks. Thank you for your patience!
+
 ## Background
 
 This application was created to solve a problem that I often encountered during my time as a tutor for elementary and middle school students. I wanted to play my playlists while ensuring that all tracks were clean, but the filter in Spotify's mobile application only skipped (and still skips) all explicit tracks rather than searching for and playing their corresponding clean versions. This functionality is exactly what Convertify provides, and it is especially convenient for parents, teachers, DJs, and more who want to enjoy their favorite music while ensuring that it is clean.
