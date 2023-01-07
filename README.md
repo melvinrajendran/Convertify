@@ -6,7 +6,7 @@ Convertify is a web application that enables Spotify users to easily convert the
 
 ## Background
 
-This application was created to solve a problem that I often encountered while using Spotify's mobile application. During my time as a tutor for elementary and middle school students, I wanted to play my playlists while ensuring that all tracks were clean. However, the filter in Spotify's mobile application skipped (and still skips) all explicit tracks rather than searching for and playing their corresponding clean versions. This functionality is exactly what Convertify provides, which is especially convenient for parents, teachers, DJs, and more who want to enjoy their favorite music while ensuring that it is clean.
+This application was created to solve a problem that I often encountered while using Spotify's mobile application. During my time as a tutor for elementary and middle school students, I wanted to play my playlists while ensuring that all tracks were clean. However, the filter in Spotify's mobile application only skipped (and still skips) all explicit tracks rather than searching for and playing their corresponding clean versions. This functionality is exactly what Convertify provides, which is especially convenient for parents, teachers, DJs, and more who want to enjoy their favorite music while ensuring that it is clean.
 
 ## Getting Started with Create React App
 
