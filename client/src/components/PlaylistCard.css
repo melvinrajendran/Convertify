@@ -18,7 +18,7 @@
 .card-img {
   width: 13.125rem;
   height: 13.125rem;
-  border-radius: 2.5%;
+  border-radius: 0%;
   box-shadow: rgba(0, 0, 0, 0.19) 0rem 0.625rem 1.25rem, rgba(0, 0, 0, 0.23) 0rem 0.375rem 0.375rem;
 }
 

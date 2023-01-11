@@ -184,7 +184,7 @@ export const getConvertifyProfile = () => {
  * 
  * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
  */
-export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}?fields=name,images,owner.display_name`, { headers });
+export const getPlaylist = (playlistId) => axios.get(`https://api.spotify.com/v1/playlists/${playlistId}?fields=name,images,owner.display_name,external_urls.spotify`, { headers });
 
 /**
  * Gets the items of a specific playlist.
@@ -312,22 +312,27 @@ export const convertPlaylist = async (userId, playlist, items, toClean) => {
  * @param {string} playlistId the ID of the playlist
  */
 export const getConvertedPlaylist = (playlistId) => {
-  return getPlaylistItems(playlistId)
-    .then(async (response) => {
-      // Chain GET requests to get all of the playlist's tracks
-      const itemArr = [];
-      let nextUrl = response.data.href;
-      do {
-        const nextItems = await getDataByUrl(nextUrl);
-        itemArr.push(...nextItems.data.items);
-        nextUrl = nextItems.data.next;
-      } while (nextUrl !== null);
+  return axios.all([getPlaylist(playlistId), getPlaylistItems(playlistId)])
+    .then(
+      axios.spread(async (playlist, items) => {
+        // Chain GET requests to get all of the playlist's tracks
+        const itemArr = [];
+        let nextUrl = items.data.href;
+        do {
+          const nextItems = await getDataByUrl(nextUrl);
+          itemArr.push(...nextItems.data.items);
+          nextUrl = nextItems.data.next;
+        } while (nextUrl !== null);
 
-      return itemArr;
-    })
+        return {
+          playlist: playlist.data,
+          items: itemArr
+        }
+      })
+    )
     .catch((error) => {
       console.log(error);
-    });
+    })
 }
 
 /**

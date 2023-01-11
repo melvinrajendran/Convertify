@@ -15,11 +15,11 @@ const PlaylistConverter = () => {
 
   const [profile, setProfile] = useState(null);
   const [playlist, setPlaylist] = useState(null);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [convertedPlaylistId, setConvertedPlaylistId] = useState(null);
+  const [convertedPlaylist, setConvertedPlaylist] = useState(null);
   const [convertedItems, setConvertedItems] = useState(null);
 
   const [toastMessage, setToastMessage] = useState("");
@@ -53,8 +53,9 @@ const PlaylistConverter = () => {
     if (playlistId) {
       getConvertedPlaylist(playlistId)
         .then((response) => {
-          setConvertedPlaylistId(playlistId);
-          setConvertedItems(response);
+          const { playlist, items } = response;
+          setConvertedPlaylist(playlist);
+          setConvertedItems(items);
 
           setIsLoading(false);
 
@@ -75,7 +76,7 @@ const PlaylistConverter = () => {
   const clickDelete = (playlistId) => {
     deletePlaylist(playlistId);
 
-    setConvertedPlaylistId(null);
+    setConvertedPlaylist(null);
     setConvertedItems(null);
 
     setToastMessage("Successfully deleted the converted playlist.");
@@ -113,13 +114,13 @@ const PlaylistConverter = () => {
                   />
                   <br className="d-md-none" />
                   <PillButton
-                    className={`stretch${convertedPlaylistId ? " mb-3 mb-md-0 me-md-4" : ""}`}
+                    className={`stretch${convertedPlaylist ? " mb-3 mb-md-0 me-md-4" : ""}`}
                     text="Clean"
                     title="Convert this playlist to clean"
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(true)}
                   />
-                  {convertedPlaylistId &&
+                  {(convertedPlaylist && convertedItems) &&
                     <>
                       <br className="d-md-none" />
                       <PillButton
@@ -127,7 +128,7 @@ const PlaylistConverter = () => {
                         className="stretch delete"
                         text="Delete"
                         title="Delete the converted playlist"
-                        onClick={() => clickDelete(convertedPlaylistId)}
+                        onClick={() => clickDelete(convertedPlaylist.id)}
                       />
                     </>
                   }
@@ -142,7 +143,11 @@ const PlaylistConverter = () => {
               xl={(convertedItems || isLoading) ? { span: 4, offset: 1 } : { span: 6, offset: 3 }}
               className={`${convertedItems ? "mt-5 mt-md-0" : ""} ${isLoading ? "mt-5 mt-md-0" : ""}`}
             >
-              <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}</p>
+              <a href={playlist.external_urls.spotify} className="white-to-green" target="_blank" rel="noopener noreferrer" title={`View ${playlist.name} on Spotify`}>
+                <p className="fs-3 mb-5 text-center">
+                  <span className="h3 bold-title">Original Playlist · </span>{items.length} song{items.length !== 1 ? "s" : ""}
+                </p>
+              </a>
               {items.map((item, index) => (
                 <div key={index}>
                   <img
@@ -153,7 +158,9 @@ const PlaylistConverter = () => {
                     height="45"
                   />
                   <div className="d-inline">
-                    <p className="m-0 truncate-text">{item.track.name}</p>
+                    <a href={item.track.external_urls.spotify} className="white-to-green" target="_blank" rel="noopener noreferrer" title={`View ${item.track.name} on Spotify`}>
+                      <p className="m-0 truncate-text">{item.track.name}</p>
+                    </a>
                     <p className="artist-names truncate-text">
                       {item.track.explicit && <span>&#127348; </span>}
                       {item.track.artists.map((artist, index) => (index < item.track.artists.length - 1 ? artist.name + ", " : artist.name))}
@@ -164,13 +171,17 @@ const PlaylistConverter = () => {
                 </div>
               ))}
             </Col>
-            {convertedItems && (
+            {(convertedPlaylist && convertedItems) && (
               <Col
                 xs={{ span: 10, offset: 1, order: "first" }}
                 md={{ span: 5, offset: 0, order: "last" }}
                 xl={{ span: 4, offset: 2 }}
               >
-                <p className="fs-3 mb-5 text-center"><span className="h3 bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}</p>
+                <a href={convertedPlaylist.external_urls.spotify} className="white-to-green" target="_blank" rel="noopener noreferrer" title={`View ${convertedPlaylist.name} on Spotify`}>
+                  <p className="fs-3 mb-5 text-center">
+                    <span className="h3 bold-title">Converted Playlist · </span>{convertedItems.length} song{convertedItems.length !== 1 ? "s" : ""}
+                  </p>
+                </a>
                 {convertedItems.map((item, index) => (
                   <div key={index}>
                     <img
@@ -181,7 +192,9 @@ const PlaylistConverter = () => {
                       height="45"
                     />
                     <div className="d-inline">
-                      <p className="m-0 truncate-text">{item.track.name}</p>
+                      <a href={item.track.external_urls.spotify} className="white-to-green" target="_blank" rel="noopener noreferrer" title={`View ${item.track.name} on Spotify`}>
+                        <p className="m-0 truncate-text">{item.track.name}</p>
+                      </a>
                       <p className="artist-names truncate-text">
                         {item.track.explicit && <span>&#127348; </span>}
                         {item.track.artists.map((artist, index) => (index < item.track.artists.length - 1 ? artist.name + ", " : artist.name))}

@@ -24,6 +24,12 @@
   transition: 200ms;
 }
 
+.navbar-brand:hover .white-to-green {
+  color: #1ed760;
+  transition: 200ms;
+  text-decoration: none;
+}
+
 .fab,
 .fas {
   font-size: 1.5rem;
