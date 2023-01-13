@@ -17,7 +17,7 @@ const Navigation = () => {
             height="36"
             className="d-inline-block align-top"
           />{' '}
-          <span className="ms-3 white-to-green mx-auto" title="View your Convertify profile">
+          <span className="white-to-green mx-auto" title="View your Convertify profile">
             Convertify
           </span>
         </Navbar.Brand>
