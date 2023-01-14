@@ -54,7 +54,10 @@ const PlaylistConverter = () => {
       getConvertedPlaylist(playlistId)
         .then((response) => {
           const { playlist, items } = response;
-          setConvertedPlaylist(playlist);
+          setConvertedPlaylist({
+            ...playlist,
+            id: playlistId
+          });
           setConvertedItems(items);
 
           setIsLoading(false);
