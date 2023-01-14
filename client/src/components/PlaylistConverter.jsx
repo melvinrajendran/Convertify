@@ -120,7 +120,7 @@ const PlaylistConverter = () => {
                     disabled={playlist.images.length ? false : true}
                     onClick={() => clickConvert(true)}
                   />
-                  {(convertedPlaylist && convertedItems) &&
+                  {convertedPlaylist &&
                     <>
                       <br className="d-md-none" />
                       <PillButton
